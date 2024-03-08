@@ -43,7 +43,7 @@ export default function LoginView() {
 						<h5 className="text-sm text-accent-foreground mb-4">
 							Continue with
 						</h5>
-						<div className="flex gap-4 mb-14">
+						<div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-14">
 							<Button
 								className="w-full cursor-pointer"
 								size="lg"

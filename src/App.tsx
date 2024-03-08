@@ -1,9 +1,15 @@
 import { Outlet } from "react-router-dom"
+import ThemeProvider from "./components/layout/theme-toggle/theme-provider"
 
 export default function App() {
 	return (
-		<main className="">
+		<ThemeProvider
+			attribute="class"
+			defaultTheme="system"
+			enableSystem
+			disableTransitionOnChange
+		>
 			<Outlet />
-		</main>
+		</ThemeProvider>
 	)
 }

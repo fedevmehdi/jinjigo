@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import React from "react"
 
 interface Step {
@@ -7,12 +8,19 @@ interface Step {
 interface StepperProps {
 	steps: Step[]
 	currentStep: number
+	className?: string
 }
 
-export default function Stepper({ steps, currentStep }: StepperProps) {
+export default function Stepper({
+	steps,
+	currentStep,
+	className,
+}: StepperProps) {
 	return (
 		<>
-			<div className="flex justify-center -space-x-1 items-center w-[30rem] mx-auto mt-20 mb-10">
+			<div
+				className={cn("flex justify-center -space-x-1 items-center", className)}
+			>
 				{steps.map((step, index) => (
 					<React.Fragment key={index}>
 						<div
@@ -24,11 +32,11 @@ export default function Stepper({ steps, currentStep }: StepperProps) {
 						>
 							<div className="flex absolute -top-[3.4rem] flex-col items-center inset-x-0">
 								<span
-									className={`relative z-10 text-center p-2 text-xs ${
+									className={`relative z-10 text-center p-2 ${
 										index <= currentStep
 											? "text-primary-foreground bg-primary"
 											: "text-secondary-foreground bg-transparent border border-border"
-									} w-[6rem] rounded-lg h-10 grid place-content-center`}
+									} w-[4rem] sm:w-[6rem] text-[10px] sm:text-xs rounded-lg h-10 grid place-content-center`}
 								>
 									{step.label}
 								</span>

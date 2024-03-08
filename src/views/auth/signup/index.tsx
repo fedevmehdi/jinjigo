@@ -39,7 +39,7 @@ function SignupFormSection({ setCurrentStep }: any) {
 			</div>
 			<div className="text-center">
 				<h5 className="text-sm text-accent-foreground mb-4">Signup with</h5>
-				<div className="flex gap-4 mb-14">
+				<div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-14">
 					<Button
 						className="w-full cursor-pointer"
 						size="lg"
@@ -279,7 +279,11 @@ export default function SignupView() {
 				IntaBook
 			</h1>
 			<div className="bg-white rounded-lg p-4 pb-20">
-				<Stepper steps={steps} currentStep={currentStep} />
+				<Stepper
+					steps={steps}
+					currentStep={currentStep}
+					className="mx-auto max-w-[20rem] sm:max-w-[30rem] mt-20 mb-10 px-4"
+				/>
 				<div className="max-w-[400px] mx-auto">{renderStep()}</div>
 			</div>
 		</div>

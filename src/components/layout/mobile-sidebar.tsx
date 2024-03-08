@@ -1,4 +1,3 @@
-"use client"
 import { DashboardNav } from "@/components/layout/dashboard-nav"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { navItems } from "@/database"
@@ -16,7 +15,7 @@ export function MobileSidebar() {
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
 			<SheetTrigger asChild>
-				<MenuIcon className="text-black" />
+				<MenuIcon className="text-secondary-foreground" />
 			</SheetTrigger>
 			<SheetContent side="left" className="!px-0">
 				<div className="px-3 py-4 space-y-4">
