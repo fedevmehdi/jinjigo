@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Stepper from "@/components/common/stepper"
 import { useState } from "react"
 import getStartedSvg from "@/assets/images/many-people-collaborating.svg"
@@ -113,7 +113,7 @@ function SignupFormSection({ setCurrentStep }: any) {
 				</div>
 				<h6 className="text-accent-foreground text-sm">
 					Already have an account?{" "}
-					<Link to="#" className="inline font-medium hover:underline">
+					<Link to="/login" className="inline font-medium hover:underline">
 						Login
 					</Link>
 				</h6>
@@ -225,6 +225,7 @@ function ConnectCalendarSection({ setCurrentStep }: any) {
 }
 
 function GetStartedSection() {
+	const redirect = useNavigate()
 	return (
 		<>
 			<Header
@@ -233,10 +234,18 @@ function GetStartedSection() {
 			/>
 			<img src={getStartedSvg} alt="people working" />
 			<div className="space-y-1 mt-6">
-				<Button size="lg" className="w-full">
+				<Button
+					size="lg"
+					className="w-full"
+					onClick={() => redirect("/dashboard")}
+				>
 					Create Your First Interview
 				</Button>
-				<Button variant="ghost" className="w-full">
+				<Button
+					variant="ghost"
+					className="w-full"
+					onClick={() => redirect("/dashboard")}
+				>
 					Skip to dashboard
 				</Button>
 			</div>

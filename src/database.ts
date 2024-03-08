@@ -1,3 +1,5 @@
+import { NavItem } from "./lib/types"
+
 export const UsersDB = [
 	{
 		id: 1,
@@ -19,5 +21,26 @@ export const UsersDB = [
 		email: "sarah.lee@interviewly.com",
 		role: "Interviewer",
 		password: "interviewerpass",
+	},
+]
+
+export const navItems: NavItem[] = [
+	{
+		title: "Home",
+		href: "/dashboard",
+		icon: "home",
+		label: "home",
+	},
+	{
+		title: "Feedbacks",
+		href: "/feedback",
+		icon: "notebookPen",
+		label: "notebook pen",
+	},
+	{
+		title: "Messages",
+		href: "/messages",
+		icon: "messageCircleMore",
+		label: "message circle more",
 	},
 ]
