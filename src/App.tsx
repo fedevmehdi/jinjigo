@@ -3,12 +3,7 @@ import ThemeProvider from "./components/layout/theme-toggle/theme-provider"
 
 export default function App() {
 	return (
-		<ThemeProvider
-			attribute="class"
-			defaultTheme="system"
-			enableSystem
-			disableTransitionOnChange
-		>
+		<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 			<Outlet />
 		</ThemeProvider>
 	)
