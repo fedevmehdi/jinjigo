@@ -70,7 +70,9 @@ export default function HomeView() {
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-2">
 							<h4 className="text-lg font-medium">Latest Notifications</h4>
-							<Badge variant="circle">4</Badge>
+							<Badge variant="circle" className="!bg-secondary">
+								4
+							</Badge>
 						</div>
 						<div className="flex items-center gap-1">
 							<Button size="icon" variant="ghost">
