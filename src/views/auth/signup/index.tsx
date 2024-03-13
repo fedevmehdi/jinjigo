@@ -285,7 +285,8 @@ export default function SignupView() {
 					className="mx-auto max-w-[20rem] sm:max-w-[30rem] mt-20 mb-10 px-4"
 				/>
 				<div className="max-w-[400px] mx-auto">{renderStep()}</div>
-			</div>
+			</div>{" "}
+			``
 		</div>
 	)
 }

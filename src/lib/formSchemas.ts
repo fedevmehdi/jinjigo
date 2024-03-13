@@ -43,3 +43,16 @@ export const authFormSchema = z.object({
 			}
 		),
 })
+
+export const createInterviewTemplateSchema = z.object({
+	templateName: z.string(),
+	message: z.string(),
+})
+
+export const createInterviewCandidateSchema = z.object({
+	email: z.string().email(),
+	name: z.string(),
+	position: z.string(),
+	currentEmployer: z.string(),
+	candidateInformationUrl: z.string().url(),
+})
