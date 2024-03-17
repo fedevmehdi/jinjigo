@@ -17,3 +17,8 @@ export interface NavItem {
 	label?: string
 	description?: string
 }
+
+export interface InterviewType {
+	name: string
+	value: string
+}

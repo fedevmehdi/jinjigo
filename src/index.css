@@ -75,4 +75,7 @@
 		@apply bg-background text-foreground;
 		font-family: "Poppins";
 	}
+	.container-primary {
+		@apply bg-white dark:bg-inherit shadow-sm rounded-lg p-6;
+	}
 }

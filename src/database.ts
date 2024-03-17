@@ -1,4 +1,4 @@
-import { NavItem } from "./lib/types"
+import { InterviewType, NavItem } from "./lib/types"
 
 export const UsersDB = [
 	{
@@ -32,6 +32,18 @@ export const navItems: NavItem[] = [
 		label: "home",
 	},
 	{
+		title: "Interview",
+		href: "/interview",
+		icon: "presentation",
+		label: "presentation",
+	},
+	{
+		title: "Interview Template",
+		href: "/dashboard/interview-template",
+		icon: "bookDashed",
+		label: "bookDashed",
+	},
+	{
 		title: "Feedbacks",
 		href: "/feedback",
 		icon: "notebookPen",
@@ -42,5 +54,32 @@ export const navItems: NavItem[] = [
 		href: "/messages",
 		icon: "messageCircleMore",
 		label: "message circle more",
+	},
+]
+
+export const interviewTypes: InterviewType[] = [
+	{
+		name: "Panel Interview",
+		value: "panel",
+	},
+	{
+		name: "Group Interview",
+		value: "group",
+	},
+	{
+		name: "Behavior Interview",
+		value: "behavior",
+	},
+	{
+		name: "Informal Interview",
+		value: "informal",
+	},
+	{
+		name: "Formal Interview",
+		value: "formal",
+	},
+	{
+		name: "Case Interview",
+		value: "case",
 	},
 ]

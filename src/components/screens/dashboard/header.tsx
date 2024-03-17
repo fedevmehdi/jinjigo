@@ -1,6 +1,6 @@
 interface Header {
 	title: string
-	subTitle: string
+	subTitle?: string
 }
 
 export default function Header({ title, subTitle }: Header) {

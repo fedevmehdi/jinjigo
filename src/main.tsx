@@ -12,6 +12,7 @@ import DashboardView from "./views/dashboard/layout"
 import HomeView from "./views/dashboard/home"
 import AuthLayout from "./views/auth/layout"
 import CreateInterviewView from "./views/dashboard/interview/create"
+import InterviewTemplateView from "./views/dashboard/interview/template"
 
 const router = createBrowserRouter([
 	{
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
 				children: [
 					{ path: "", element: <HomeView /> },
 					{ path: "new-interview", element: <CreateInterviewView /> },
+					{ path: "interview-template", element: <InterviewTemplateView /> },
 				],
 			},
 		],

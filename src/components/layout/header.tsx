@@ -7,7 +7,7 @@ import ThemeToggle from "./theme-toggle/theme-toggle"
 
 export default function Header() {
 	return (
-		<div className="max-lg:shadow-sm fixed top-0 left-0 right-0 supports-backdrop-blur:bg-background/60 z-20 px-6 lg:mt-10 bg-white dark:bg-inherit max-lg:border lg:bg-transparent">
+		<div className="max-lg:shadow-sm relative max-lg:fixed top-0 left-0 right-0 supports-backdrop-blur:bg-background/60 px-6 lg:mt-10 bg-white dark:bg-inherit max-lg:border lg:bg-transparent z-[10] ">
 			<nav className="h-14 flex items-center justify-between lg:justify-end px-4">
 				<div className={cn("block lg:!hidden")}>
 					<MobileSidebar />

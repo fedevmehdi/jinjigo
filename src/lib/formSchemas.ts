@@ -56,3 +56,11 @@ export const createInterviewCandidateSchema = z.object({
 	currentEmployer: z.string(),
 	candidateInformationUrl: z.string().url(),
 })
+
+export const createInterviewInterviewSchema = z.object({
+	interviewType: z.string(),
+	position: z.string(),
+	interviewDuration: z.number(),
+	interviewer1: z.string().email(),
+	interviewer2: z.string().email(),
+})

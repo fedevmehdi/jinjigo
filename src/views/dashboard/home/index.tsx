@@ -14,7 +14,7 @@ export default function HomeView() {
 		<>
 			<Header title="Good Evening, Tom" subTitle="Tuesday, Jan 5, 2023" />
 			<div className="grid grid-cols-1 md:grid-cols-[60%_1fr] gap-4 lg:gap-6 h-[75vh]">
-				<div className="bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6">
+				<div className="container-primary">
 					<div className="flex items-start justify-between">
 						<h4 className="text-lg font-medium">Interviews</h4>
 						<Button variant="secondary" onClick={() => setCimOpen(true)}>
@@ -56,7 +56,7 @@ export default function HomeView() {
 						<TabsContent value="tab2">tab 2</TabsContent>
 					</Tabs>
 				</div>
-				<div className="bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6">
+				<div className="container-primary">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-2">
 							<h4 className="text-lg font-medium">Latest Notifications</h4>

@@ -1,9 +1,11 @@
 import {
 	ArrowRight,
+	BookDashed,
 	Home,
 	LucideIcon,
 	MessageCircleMore,
 	NotebookPen,
+	Presentation,
 } from "lucide-react"
 
 export type Icon = LucideIcon
@@ -13,4 +15,6 @@ export const Icons = {
 	arrowRight: ArrowRight,
 	notebookPen: NotebookPen,
 	messageCircleMore: MessageCircleMore,
+	presentation: Presentation,
+	bookDashed: BookDashed,
 }
