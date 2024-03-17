@@ -1,8 +1,8 @@
-import Header from "@/components/screens/dashboard/header"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal } from "lucide-react"
+import Header from "../../components/header"
 
-export default function InterviewTemplateView() {
+export default function InterviewTemplatePage() {
 	return (
 		<>
 			<Header title="Interview Template" />

@@ -6,9 +6,9 @@ import Notification from "@/components/ui/notification"
 import CreateInterviewModal from "@/components/modals/create-interview"
 import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Header from "@/components/screens/dashboard/header"
+import Header from "../components/header"
 
-export default function HomeView() {
+export default function OverviewPage() {
 	const [cimOpen, setCimOpen] = useState(false)
 	return (
 		<>

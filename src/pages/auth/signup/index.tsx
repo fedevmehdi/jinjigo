@@ -3,12 +3,12 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "react-router-dom"
-import Stepper from "@/components/common/stepper"
 import { useState } from "react"
 import getStartedSvg from "@/assets/images/many-people-collaborating.svg"
 import { authFormSchema } from "@/lib/formSchemas"
-import AuthForm from "@/components/screens/auth/form"
-import Header from "@/components/screens/auth/header"
+import Header from "../components/header"
+import AuthForm from "../components/form"
+import Stepper from "@/components/ui/stepper"
 
 function SignupFormSection({ setCurrentStep }: any) {
 	const form = useForm<z.infer<typeof authFormSchema>>({

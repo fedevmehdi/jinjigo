@@ -1,13 +1,13 @@
-import AuthForm from "@/components/screens/auth/form"
-import Header from "@/components/screens/auth/header"
 import { Button } from "@/components/ui/button"
 import { authFormSchema } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import { z } from "zod"
+import Header from "../components/header"
+import AuthForm from "../components/form"
 
-export default function LoginView() {
+export default function LoginPage() {
 	const form = useForm<z.infer<typeof authFormSchema>>({
 		resolver: zodResolver(authFormSchema),
 		defaultValues: {

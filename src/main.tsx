@@ -4,39 +4,39 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import "./index.css"
 import App from "./App"
 
-// Views
-import SignupView from "./views/auth/signup"
-import LoginView from "./views/auth/login"
-import ErrorView from "./views/error"
-import DashboardView from "./views/dashboard/layout"
-import HomeView from "./views/dashboard/home"
-import AuthLayout from "./views/auth/layout"
-import CreateInterviewView from "./views/dashboard/interview/create"
-import InterviewTemplateView from "./views/dashboard/interview/template"
+// Pages
+import AuthLayout from "./pages/auth/layout"
+import SignupPage from "./pages/auth/signup"
+import LoginPage from "./pages/auth/login"
+import DashboardLayout from "./pages/dashboard/layout"
+import OverviewPage from "./pages/dashboard/overview"
+import CreateInterviewPage from "./pages/dashboard/interview/create"
+import InterviewTemplatePage from "./pages/dashboard/interview/template"
+import ErrorPage from "./pages/dashboard/error"
 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
-		errorElement: <ErrorView />,
+		errorElement: <ErrorPage />,
 		children: [
 			{
 				path: "signup",
 				element: <AuthLayout />,
-				children: [{ index: true, element: <SignupView /> }],
+				children: [{ index: true, element: <SignupPage /> }],
 			},
 			{
 				path: "login",
 				element: <AuthLayout />,
-				children: [{ index: true, element: <LoginView /> }],
+				children: [{ index: true, element: <LoginPage /> }],
 			},
 			{
 				path: "dashboard",
-				element: <DashboardView />,
+				element: <DashboardLayout />,
 				children: [
-					{ path: "", element: <HomeView /> },
-					{ path: "new-interview", element: <CreateInterviewView /> },
-					{ path: "interview-template", element: <InterviewTemplateView /> },
+					{ path: "", element: <OverviewPage /> },
+					{ path: "new-interview", element: <CreateInterviewPage /> },
+					{ path: "interview-template", element: <InterviewTemplatePage /> },
 				],
 			},
 		],

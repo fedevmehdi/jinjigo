@@ -1,5 +1,3 @@
-import Header from "@/components/screens/dashboard/header"
-import ScheduleOrderDnd from "@/components/screens/dashboard/interview/schedule-dnd"
 import { Button } from "@/components/ui/button"
 import DragDropFiles from "@/components/ui/drag-drop-files"
 import {
@@ -27,8 +25,10 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import Header from "../../components/header"
+import ScheduleOrderDnd from "../components/schedule-dnd"
 
-export default function CreateInterviewView() {
+export default function CreateInterviewPage() {
 	const candidateForm = useForm<z.infer<typeof createInterviewCandidateSchema>>(
 		{
 			resolver: zodResolver(createInterviewCandidateSchema),
