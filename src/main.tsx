@@ -14,6 +14,7 @@ import CreateInterviewPage from "./pages/dashboard/interview/create"
 import InterviewTemplatePage from "./pages/dashboard/interview/template"
 import ErrorPage from "./pages/dashboard/error"
 import CreateInterviewTemplatePage from "./pages/dashboard/interview/template/create"
+import InterviewPage from "./pages/dashboard/interview"
 
 const router = createBrowserRouter([
 	{
@@ -36,8 +37,9 @@ const router = createBrowserRouter([
 				element: <DashboardLayout />,
 				children: [
 					{ path: "", element: <OverviewPage /> },
+					{ path: "interviews", element: <InterviewPage /> },
 					{ path: "new-interview", element: <CreateInterviewPage /> },
-					{ path: "interview-template", element: <InterviewTemplatePage /> },
+					{ path: "interview-templates", element: <InterviewTemplatePage /> },
 					{
 						path: "new-interview-template",
 						element: <CreateInterviewTemplatePage />,

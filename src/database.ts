@@ -33,13 +33,13 @@ export const navItems: NavItem[] = [
 	},
 	{
 		title: "Interview",
-		href: "/interview",
+		href: "/dashboard/interviews",
 		icon: "presentation",
 		label: "presentation",
 	},
 	{
 		title: "Interview Template",
-		href: "/dashboard/interview-template",
+		href: "/dashboard/interview-templates",
 		icon: "bookDashed",
 		label: "bookDashed",
 	},

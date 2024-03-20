@@ -43,8 +43,8 @@ export default function CreateInterviewTemplatePage() {
 	return (
 		<>
 			<Header title="Create Interview Template" />
-			<div className="grid grid-cols-1 md:grid-cols-[60%_1fr] gap-4 lg:gap-6">
-				<div className="bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6">
+			<div className="dashboard-grid">
+				<div className="card-primary">
 					<h3 className="font-medium text-xl">Interview Details</h3>
 					<hr className="my-6" />
 					<div>
@@ -188,7 +188,7 @@ export default function CreateInterviewTemplatePage() {
 						<Button
 							variant="secondary"
 							className="w-full"
-							onClick={() => navigate("/dashboard/interview-template")}
+							onClick={() => navigate("/dashboard/interview-templates")}
 						>
 							Cancel
 						</Button>

@@ -78,4 +78,10 @@
 	.container-primary {
 		@apply bg-white dark:bg-inherit shadow-sm rounded-lg p-6;
 	}
+	.dashboard-grid {
+		@apply grid grid-cols-1 md:grid-cols-[60%_1fr] gap-4 lg:gap-6;
+	}
+	.card-primary {
+		@apply bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6;
+	}
 }

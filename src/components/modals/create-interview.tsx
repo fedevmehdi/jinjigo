@@ -9,7 +9,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TabsContent } from "@radix-ui/react-tabs"
 import { Checkbox } from "../ui/checkbox"
 import { Button } from "../ui/button"
-import { PlusIcon } from "lucide-react"
+import { PlusSquare } from "lucide-react"
 import { useState } from "react"
 import {
 	Form,
@@ -25,6 +25,7 @@ import { createInterviewTemplateSchema } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Textarea } from "../ui/textarea"
+import { useNavigate } from "react-router-dom"
 
 interface CreateInterviewModal {
 	open: boolean
@@ -94,7 +95,8 @@ function CreateNewInterview({ setSection }: InterviewSection) {
 	)
 }
 
-function CreateInterview({ setSection }: InterviewSection) {
+function CreateInterview() {
+	const navigate = useNavigate()
 	return (
 		<>
 			<div>
@@ -102,10 +104,20 @@ function CreateInterview({ setSection }: InterviewSection) {
 					<DialogTitle>Select Template</DialogTitle>
 				</DialogHeader>
 				<Tabs defaultValue="all">
-					<TabsList>
-						<TabsTrigger value="all">All</TabsTrigger>
-						<TabsTrigger value="archieve">Archieve</TabsTrigger>
-					</TabsList>
+					<div className="relative">
+						<TabsList>
+							<TabsTrigger value="all">All</TabsTrigger>
+							<TabsTrigger value="archieve">Archieve</TabsTrigger>
+						</TabsList>
+						<Button
+							className="absolute right-0 -top-0 lg:-top-[4px] flex items-center gap-2"
+							variant="ghost"
+							size="sm"
+							onClick={() => navigate("/dashboard/new-interview-template")}
+						>
+							<PlusSquare className="w-4 h-4 mb-[1px]" /> New Template
+						</Button>
+					</div>
 					<TabsContent value="all">
 						<div className="space-y-2">
 							<div className="@container flex justify-between items-center border rounded-lg border-l-4 border-l-sky-400 p-2 text-sm">
@@ -135,9 +147,9 @@ function CreateInterview({ setSection }: InterviewSection) {
 				<Button variant="secondary">Cancel</Button>
 				<Button
 					className="flex items-center gap-1"
-					onClick={() => setSection("create-new-interview")}
+					onClick={() => navigate("/dashboard/new-interview")}
 				>
-					Create New <PlusIcon className="w-4 h-4 mb-[1px]" />
+					Create Interview
 				</Button>
 			</DialogFooter>
 		</>
@@ -153,7 +165,7 @@ export default function CreateInterviewModal({
 	const renderSection = () => {
 		switch (section) {
 			case "create-interview":
-				return <CreateInterview setSection={setSection} />
+				return <CreateInterview />
 			case "create-new-interview":
 				return <CreateNewInterview setSection={setSection} />
 		}

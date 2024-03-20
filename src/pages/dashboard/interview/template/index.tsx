@@ -1,47 +1,146 @@
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal, PlusSquare } from "lucide-react"
+import { Copy, MoreHorizontal, PlusSquare, Trash } from "lucide-react"
 import Header from "../../components/header"
 import { useNavigate } from "react-router-dom"
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function InterviewTemplatePage() {
 	const navigate = useNavigate()
 	return (
 		<>
 			<Header title="Interview Template" />
-			<Button
-				variant="ghost"
-				className="mb-4"
-				onClick={() => navigate("/dashboard/new-interview-template")}
-			>
-				<div className="flex items-center gap-2">
-					<PlusSquare />
-					Create a new template
-				</div>
-			</Button>
-			<div className="container-primary columns-2 space-y-4">
-				<div className="w-full flex justify-between items-center bg-secondary p-4 rounded-lg">
-					<h4 className="font-medium">Template Name</h4>
-					<Button size="icon" variant="ghost">
-						<MoreHorizontal />
+			<div className="dashboard-grid">
+				<div>
+					<Button
+						variant="ghost"
+						className="mb-4"
+						onClick={() => navigate("/dashboard/new-interview-template")}
+					>
+						<div className="flex items-center gap-2">
+							<PlusSquare />
+							Create a new template
+						</div>
 					</Button>
-				</div>
-				<div className="w-full flex justify-between items-center bg-secondary p-4 rounded-lg">
-					<h4 className="font-medium">Template Name</h4>
-					<Button size="icon" variant="ghost">
-						<MoreHorizontal />
-					</Button>
-				</div>
-				<div className="w-full flex justify-between items-center bg-secondary p-4 rounded-lg">
-					<h4 className="font-medium">Template Name</h4>
-					<Button size="icon" variant="ghost">
-						<MoreHorizontal />
-					</Button>
-				</div>
-				<div className="w-full flex justify-between items-center bg-secondary p-4 rounded-lg">
-					<h4 className="font-medium">Template Name</h4>
-					<Button size="icon" variant="ghost">
-						<MoreHorizontal />
-					</Button>
+					<div className="container-primary grid grid-cols-2 gap-2">
+						<div className="w-full flex justify-between items-center bg-secondary p-2 px-4 rounded-lg">
+							<h4 className="font-medium">Template Name</h4>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button size="icon" variant="ghost">
+										<MoreHorizontal />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent
+									align="end"
+									alignOffset={5}
+									sideOffset={-5}
+								>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Copy className="h-4 w-4" />
+											Duplicate
+										</div>
+									</DropdownMenuItem>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Trash className="h-4 w-4" />
+											Delete
+										</div>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</div>
+						<div className="w-full flex justify-between items-center bg-secondary p-2 px-4 rounded-lg">
+							<h4 className="font-medium">Template Name</h4>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button size="icon" variant="ghost">
+										<MoreHorizontal />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent
+									align="end"
+									alignOffset={5}
+									sideOffset={-5}
+								>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Copy className="h-4 w-4" />
+											Duplicate
+										</div>
+									</DropdownMenuItem>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Trash className="h-4 w-4" />
+											Delete
+										</div>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</div>
+						<div className="w-full flex justify-between items-center bg-secondary p-2 px-4 rounded-lg">
+							<h4 className="font-medium">Template Name</h4>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button size="icon" variant="ghost">
+										<MoreHorizontal />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent
+									align="end"
+									alignOffset={5}
+									sideOffset={-5}
+								>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Copy className="h-4 w-4" />
+											Duplicate
+										</div>
+									</DropdownMenuItem>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Trash className="h-4 w-4" />
+											Delete
+										</div>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</div>
+						<div className="w-full flex justify-between items-center bg-secondary p-2 px-4 rounded-lg">
+							<h4 className="font-medium">Template Name</h4>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button size="icon" variant="ghost">
+										<MoreHorizontal />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent
+									align="end"
+									alignOffset={5}
+									sideOffset={-5}
+								>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Copy className="h-4 w-4" />
+											Duplicate
+										</div>
+									</DropdownMenuItem>
+									<DropdownMenuItem asChild>
+										<div className="flex items-center gap-2 cursor-pointer">
+											<Trash className="h-4 w-4" />
+											Delete
+										</div>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</div>
+					</div>
 				</div>
 			</div>
 		</>
