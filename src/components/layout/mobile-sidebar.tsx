@@ -20,7 +20,7 @@ export function MobileSidebar() {
 			<SheetContent side="left" className="!px-0">
 				<div className="px-3 py-4 space-y-4">
 					<h2 className="mb-8 px-4 text-2xl font-semibold tracking-tight text-secondary-foreground">
-						IntaBook
+						Jinjigo
 					</h2>
 					<div className="space-y-1">
 						<DashboardNav items={navItems} setOpen={setOpen} />
