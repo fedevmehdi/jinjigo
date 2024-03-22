@@ -71,3 +71,9 @@ export const createInterviewInterviewSchema = z.object({
 	interviewer1: z.string().email(),
 	interviewer2: z.string().email(),
 })
+
+export const createEmailTemplateSchema = z.object({
+	templateName: z.string(),
+	title: z.string(),
+	content: z.string(),
+})

@@ -15,6 +15,8 @@ import InterviewTemplatePage from "./pages/dashboard/interview/template"
 import ErrorPage from "./pages/dashboard/error"
 import CreateInterviewTemplatePage from "./pages/dashboard/interview/template/create"
 import InterviewPage from "./pages/dashboard/interview"
+import EmailTemplatePage from "./pages/dashboard/email/template"
+import CreateEmailTemplatePage from "./pages/dashboard/email/create"
 
 const router = createBrowserRouter([
 	{
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
 						path: "new-interview-template",
 						element: <CreateInterviewTemplatePage />,
 					},
+					{
+						path: "email-templates",
+						element: <EmailTemplatePage />,
+					},
+					{
+						path: "new-email-template",
+						element: <CreateEmailTemplatePage />,
+					},
 				],
 			},
 		],
@@ -51,7 +61,5 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<RouterProvider router={router} />
-	</React.StrictMode>
+	<RouterProvider router={router} />
 )

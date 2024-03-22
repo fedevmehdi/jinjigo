@@ -6,7 +6,7 @@ import { ArrowUpDown } from "lucide-react"
 // You can use a Zod schema here if you want.
 export type Interview = {
 	id: string
-	company: string
+	interviewerName: string
 	date: string
 	status: "scheduled" | "in-evaluation" | "complete" | "failed" | "Scheduling"
 	position: string
@@ -14,14 +14,14 @@ export type Interview = {
 
 export const columns: ColumnDef<Interview>[] = [
 	{
-		accessorKey: "company",
+		accessorKey: "interviewerName",
 		header: ({ column }) => {
 			return (
 				<Button
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Company
+					Interviewer Name
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			)

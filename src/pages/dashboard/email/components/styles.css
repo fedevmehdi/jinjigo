@@ -1,0 +1,37 @@
+.dark .cdx-block,
+.dark .ce-header,
+.dark .inlineToolButton,
+.dark .ce-toolbar__plus,
+.dark .ce-toolbar__settings-btn,
+.dark .ce-popover__search {
+	color: white;
+}
+.dark .ce-popover__search {
+	background-color: #2b2b2b;
+}
+
+.dark .ce-block--selected .ce-block__content {
+	background: rgba(255, 255, 255, 0.1);
+}
+.dark .ce-toolbar__plus:hover,
+.dark .ce-toolbar__settings-btn:hover,
+.dark .cdx-loader,
+.dark .cdx-button {
+	color: white;
+	background-color: #262626;
+}
+
+.dark .cdx-button:hover {
+	background-color: #2f2f2f;
+}
+
+.dark .ce-popover,
+.dark .ce-popover-item,
+.dark .ce-popover-item__icon,
+.dark .ce-popover-items,
+.dark .ce-popover-item:hover {
+	--color-background-item-hover: #2f2f2f;
+	background-color: #262626;
+	color: white;
+	border: none;
+}

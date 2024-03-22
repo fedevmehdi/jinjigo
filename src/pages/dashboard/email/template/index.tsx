@@ -9,21 +9,21 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export default function InterviewTemplatePage() {
+export default function EmailTemplatePage() {
 	const navigate = useNavigate()
 	return (
 		<>
-			<Header title="Interview Template" />
+			<Header title="Email Template" />
 			<div className="grid-dashboard">
 				<div>
 					<Button
 						variant="ghost"
 						className="mb-4"
-						onClick={() => navigate("/dashboard/new-interview-template")}
+						onClick={() => navigate("/dashboard/new-email-template")}
 					>
 						<div className="flex items-center gap-2">
 							<PlusSquare />
-							Create a new Interview Template
+							Create a new Email Template
 						</div>
 					</Button>
 					<div className="container-primary grid grid-cols-2 gap-2">

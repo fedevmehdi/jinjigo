@@ -44,6 +44,12 @@ export const navItems: NavItem[] = [
 		label: "bookDashed",
 	},
 	{
+		title: "Email Template",
+		href: "/dashboard/email-templates",
+		icon: "inbox",
+		label: "inbox",
+	},
+	{
 		title: "Feedbacks",
 		href: "/feedback",
 		icon: "notebookPen",

@@ -58,8 +58,8 @@ export default function CreateInterviewPage() {
 	return (
 		<>
 			<Header title="Create Interview" subTitle="Tuesday, Jan 5, 2023" />
-			<div className="grid grid-cols-1 md:grid-cols-[60%_1fr] gap-4 lg:gap-6">
-				<div className="bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6">
+			<div className="grid-dashboard">
+				<div className="card-primary">
 					<h3 className="font-medium text-xl">Interview Details</h3>
 					<hr className="my-6" />
 					<div>
@@ -225,15 +225,15 @@ export default function CreateInterviewPage() {
 				</div>
 				<div className="flex flex-col justify-between gap-4">
 					<div className="space-y-4">
-						<div className="bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6">
+						<div className="card-primary">
 							<h3 className="mb-6 text-lg">Upload Resume</h3>
 							<DragDropFiles />
 						</div>
-						<div className="bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6">
+						<div className="card-primary">
 							<h3 className="mb-6 text-lg">Notes</h3>
 							<Textarea className="" rows={5} />
 						</div>
-						<div className="bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6">
+						<div className="card-primary">
 							<h3 className="mb-6 text-lg">Order of Schedule</h3>
 							<ScheduleOrderDnd />
 						</div>

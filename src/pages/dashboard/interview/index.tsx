@@ -13,27 +13,27 @@ export default function InterviewPage() {
 			position: "UI/UX Designer",
 			status: "scheduled",
 			date: "5:30pm | Jun 5",
-			company: "Apple .inc",
+			interviewerName: "John Smith (Apple .inc)",
 		},
 		{
 			id: "728ed62f",
 			position: "Product Manager",
 			status: "Scheduling",
 			date: "5:30pm | Jun 6",
-			company: "Sales Force .inc",
+			interviewerName: "Bano Atsuro (Sales .inc)",
 		},
 		{
 			id: "728ed72f",
 			position: "Project Manager",
 			status: "in-evaluation",
 			date: "5:30pm | Jun 7",
-			company: "Zendesk .inc",
+			interviewerName: "James Doe (Zendesk .inc)",
 		},
 	]
 	return (
 		<>
 			<Header title="Interview List" />
-			<div className="dashboard-grid">
+			<div className="grid-dashboard">
 				<div>
 					<Button
 						variant="ghost"

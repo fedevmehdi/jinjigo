@@ -43,7 +43,7 @@ export default function CreateInterviewTemplatePage() {
 	return (
 		<>
 			<Header title="Create Interview Template" />
-			<div className="dashboard-grid">
+			<div className="grid-dashboard">
 				<div className="card-primary">
 					<h3 className="font-medium text-xl">Interview Details</h3>
 					<hr className="my-6" />
