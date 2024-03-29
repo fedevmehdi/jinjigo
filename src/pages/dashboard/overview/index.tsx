@@ -13,7 +13,7 @@ export default function OverviewPage() {
 	return (
 		<>
 			<Header title="Good Evening, Tom" subTitle="Tuesday, Jan 5, 2023" />
-			<div className="grid grid-cols-1 md:grid-cols-[60%_1fr] gap-4 lg:gap-6 h-[75vh]">
+			<div className="grid-dashboard">
 				<div className="container-primary">
 					<div className="flex items-start justify-between">
 						<h4 className="text-lg font-medium">Interviews</h4>

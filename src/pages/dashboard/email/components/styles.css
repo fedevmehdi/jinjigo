@@ -1,3 +1,18 @@
+@media (min-width: 650px) {
+	.ce-toolbar__actions {
+		right: 100% !important;
+		left: inherit !important;
+		top: 5px !important;
+	}
+	.ce-toolbox .ce-popover {
+		right: inherit !important;
+	}
+}
+
+.highlight {
+	background-color: yellow;
+}
+
 .dark .cdx-block,
 .dark .ce-header,
 .dark .inlineToolButton,

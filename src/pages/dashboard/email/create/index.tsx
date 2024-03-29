@@ -84,7 +84,7 @@ export default function CreateEmailTemplatePage() {
 							/>
 							<div>
 								<Label>Content</Label>
-								<div className="py-2 px-6 border rounded-lg mt-2 ">
+								<div className="min-[650px]:ps-[70px] border px-6 rounded-lg mt-2">
 									<Editor
 										data={data}
 										setData={setData}
