@@ -74,7 +74,7 @@ export default function Calendar() {
 	}
 	return (
 		<div>
-			<div className="flex justify-between mb-4">
+			<div className="flex flex-col items-center gap-2 sm:flex-row justify-between mb-4">
 				<div className="flex items-center gap-2 justify-center">
 					<Button
 						variant="ghost"
@@ -115,22 +115,33 @@ export default function Calendar() {
 					</DropdownMenu>
 				</div>
 			</div>
-			<FullCalendar
-				ref={calendarRef}
-				plugins={[timeGridPlugin, interactionPlugin]}
-				events={events}
-				initialView="timeGridWeek"
-				allDaySlot={false}
-				eventStartEditable={true}
-				nowIndicator={true}
-				slotMinTime="09:00:00"
-				slotMaxTime="21:00:00"
-				height={750}
-				hiddenDays={[0]}
-				dayHeaderContent={renderDateContent}
-				slotLabelContent={renderTimeContent}
-				headerToolbar={false}
-			/>
+			<div className="overflow-auto">
+				<div className="min-w-[600px]">
+					<FullCalendar
+						ref={calendarRef}
+						plugins={[timeGridPlugin, interactionPlugin]}
+						events={events}
+						initialView="timeGridWeek"
+						allDaySlot={false}
+						eventStartEditable={true}
+						nowIndicator={true}
+						slotMinTime="09:00:00"
+						slotMaxTime="21:00:00"
+						height={750}
+						hiddenDays={[0]}
+						dayHeaderContent={renderDateContent}
+						slotLabelContent={renderTimeContent}
+						headerToolbar={false}
+						nowIndicatorClassNames={arg => {
+							if (arg.isAxis) {
+								return "!border-x-primary"
+							} else {
+								return "!border-primary"
+							}
+						}}
+					/>
+				</div>
+			</div>
 		</div>
 	)
 }
