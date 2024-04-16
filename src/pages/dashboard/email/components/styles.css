@@ -7,6 +7,10 @@
 	.ce-toolbox .ce-popover {
 		right: inherit !important;
 	}
+	.codex-editor--narrow .ce-settings .ce-popover {
+		right: inherit !important;
+		left: inherit !important;
+	}
 }
 
 .highlight {

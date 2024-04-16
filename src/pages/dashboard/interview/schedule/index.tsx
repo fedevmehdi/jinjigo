@@ -6,7 +6,7 @@ export default function ScheduleInterviewPage() {
 		<>
 			<Header
 				title="Schedule Interview"
-				subTitle="Please set your prospective date between between 09:00am - 17:00pm"
+				subTitle="Please set your prospective date between between 09:00am - 5:00pm"
 			/>
 			<div className="card-primary">
 				<Calendar />

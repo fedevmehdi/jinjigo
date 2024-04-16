@@ -8,13 +8,14 @@ import DashboardLayout from "./pages/dashboard/layout"
 import OverviewPage from "./pages/dashboard/overview"
 import CreateInterviewPage from "./pages/dashboard/interview/create"
 import InterviewTemplatePage from "./pages/dashboard/interview/template"
-import ErrorPage from "./pages/dashboard/error"
 import CreateInterviewTemplatePage from "./pages/dashboard/interview/template/create"
 import InterviewPage from "./pages/dashboard/interview"
 import EmailTemplatePage from "./pages/dashboard/email/template"
 import CreateEmailTemplatePage from "./pages/dashboard/email/create"
 import App from "./App"
 import ScheduleInterviewPage from "./pages/dashboard/interview/schedule"
+import Error404 from "./pages/error/not-found"
+import ErrorPage from "./pages/error/error"
 
 export const router = createBrowserRouter([
 	{
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
 						element: <ScheduleInterviewPage />,
 					},
 				],
+			},
+			{
+				path: "*",
+				element: <Error404 />,
 			},
 		],
 	},

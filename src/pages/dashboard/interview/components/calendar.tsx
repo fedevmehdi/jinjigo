@@ -116,7 +116,7 @@ export default function Calendar() {
 				</div>
 			</div>
 			<div className="overflow-auto">
-				<div className="min-w-[600px]">
+				<div className="min-w-[600px] ">
 					<FullCalendar
 						ref={calendarRef}
 						plugins={[timeGridPlugin, interactionPlugin]}
@@ -126,8 +126,8 @@ export default function Calendar() {
 						eventStartEditable={true}
 						nowIndicator={true}
 						slotMinTime="09:00:00"
-						slotMaxTime="21:00:00"
-						height={750}
+						slotMaxTime="18:00:00"
+						height={550}
 						hiddenDays={[0]}
 						dayHeaderContent={renderDateContent}
 						slotLabelContent={renderTimeContent}
