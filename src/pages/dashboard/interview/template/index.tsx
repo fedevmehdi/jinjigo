@@ -14,7 +14,7 @@ export default function InterviewTemplatePage() {
 	return (
 		<>
 			<Header title="Interview Template" />
-			<div className="grid-dashboard">
+			<div className="grid-dashboard ">
 				<div>
 					<Button
 						variant="ghost"
@@ -26,7 +26,7 @@ export default function InterviewTemplatePage() {
 							Create a new Interview Template
 						</div>
 					</Button>
-					<div className="container-primary grid grid-cols-2 gap-2">
+					<div className="container-primary grid grid-cols-2 gap-2 ">
 						<div className="w-full flex justify-between items-center bg-secondary p-2 px-4 rounded-lg">
 							<h4 className="font-medium">Template Name</h4>
 							<DropdownMenu>

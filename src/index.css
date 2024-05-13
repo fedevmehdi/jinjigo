@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
 	:root {
-		--background: 0 0% 98%;
+		--background: 0 0% 100%;
 		--foreground: 0 0% 3.9%;
 
 		--card: 0 0% 100%;
@@ -14,7 +14,7 @@
 		--popover: 0 0% 100%;
 		--popover-foreground: 0 0% 3.9%;
 
-		--primary: 202 85% 41%;
+		--primary: 270 100% 45%;
 		--primary-foreground: 0 0% 98%;
 
 		--secondary: 0 0% 95%;
@@ -79,18 +79,42 @@
 	}
 	body {
 		@apply bg-background text-secondary-foreground;
-		font-family: "Poppins";
+		font-family: "Work Sans", sans-serif;
+	}
+	h1 {
+		@apply text-4xl lg:text-6xl font-bold leading-tight;
+	}
+	h2 {
+		@apply text-2xl lg:text-3xl font-bold leading-tight;
+	}
+	h3 {
+		@apply text-2xl lg:text-3xl font-semibold leading-tight;
+	}
+	h5 {
+		@apply text-lg font-medium;
+	}
+	h4 {
+		@apply font-semibold;
+	}
+	h5 {
+		@apply text-sm font-medium;
+	}
+	h6 {
+		@apply text-xs font-medium;
 	}
 	.container-primary {
-		@apply bg-white dark:bg-inherit shadow-sm rounded-lg p-6 dark:border;
+		@apply bg-white dark:bg-inherit rounded-lg p-6 dark:border;
 	}
 	.grid-dashboard {
 		@apply grid grid-cols-1 md:grid-cols-[65%_1fr] gap-4 lg:gap-6;
 	}
 	.card-primary {
-		@apply bg-white dark:bg-inherit dark:border shadow-sm rounded-lg p-6;
+		@apply bg-white dark:bg-inherit dark:border rounded-lg p-6 shadow-scard;
 	}
 	.ce-block__content {
 		@apply prose;
+	}
+	.h-cscreen {
+		@apply h-[calc(100vh-8px)];
 	}
 }

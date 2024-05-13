@@ -11,10 +11,10 @@ import Header from "../components/header"
 export default function OverviewPage() {
 	const [cimOpen, setCimOpen] = useState(false)
 	return (
-		<>
-			<Header title="Good Evening, Tom" subTitle="Tuesday, Jan 5, 2023" />
+		<div>
+			<Header title="Overview" />
 			<div className="grid-dashboard">
-				<div className="container-primary">
+				<div>
 					<div className="flex items-start justify-between">
 						<h4 className="text-lg font-medium">Interviews</h4>
 						<Button variant="secondary" onClick={() => setCimOpen(true)}>
@@ -28,7 +28,7 @@ export default function OverviewPage() {
 						</TabsList>
 						<TabsContent value="tab1">
 							<div className="@container">
-								<div className="flex flex-col gap-2  @[500px]:gap-0 @[500px]:flex-row border rounded-lg border-l-4 border-l-sky-400 p-2 text-sm">
+								<div className="flex flex-col gap-2  @[500px]:gap-0 @[500px]:flex-row border rounded border-l-4 border-l-sky-400 p-2 text-sm">
 									<div className="flex items-center justify-between @[500px]:border-r @[500px]:px-4 w-full">
 										<div className="flex items-start gap-2">
 											<Checkbox className="mt-[4px] @[500px]:mt-0 @[500px]:mb-[1px]" />
@@ -36,12 +36,12 @@ export default function OverviewPage() {
 												UI Designer - Inoma Digital
 											</h4>
 										</div>
-										<h4 className="text-accent-foreground me-2 @[500px]:me-0">
+										<h4 className="text-accent-foreground me-2 @[500px]:me-0 font-normal">
 											5:30 PM
 										</h4>
 									</div>
 									<div className="flex flex-row-reverse  @[500px]:flex-row items-center justify-between w-full ps-4">
-										<h4 className="hidden @[500px]:block">Jun 5</h4>
+										<h4 className="hidden @[500px]:block font-normal">Jun 5</h4>
 										<Button
 											size="sm"
 											variant="secondary"
@@ -56,7 +56,7 @@ export default function OverviewPage() {
 						<TabsContent value="tab2">tab 2</TabsContent>
 					</Tabs>
 				</div>
-				<div className="container-primary">
+				<div>
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-2">
 							<h4 className="text-lg font-medium">Latest Notifications</h4>
@@ -103,6 +103,6 @@ export default function OverviewPage() {
 
 			{/* Modals */}
 			<CreateInterviewModal open={cimOpen} setOpen={setCimOpen} />
-		</>
+		</div>
 	)
 }

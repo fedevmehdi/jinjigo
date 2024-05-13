@@ -16,6 +16,7 @@ import App from "./App"
 import ScheduleInterviewPage from "./pages/dashboard/interview/schedule"
 import Error404 from "./pages/error/not-found"
 import ErrorPage from "./pages/error/error"
+import SettingsPage from "./pages/settings"
 
 export const router = createBrowserRouter([
 	{
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
 				children: [{ index: true, element: <LoginPage /> }],
 			},
 			{
-				path: "dashboard",
+				path: "app",
 				element: <DashboardLayout />,
 				children: [
 					{ path: "", element: <OverviewPage /> },
@@ -57,8 +58,13 @@ export const router = createBrowserRouter([
 						path: "interview-schedule",
 						element: <ScheduleInterviewPage />,
 					},
+					{
+						path: "settings",
+						element: <SettingsPage />,
+					},
 				],
 			},
+
 			{
 				path: "*",
 				element: <Error404 />,

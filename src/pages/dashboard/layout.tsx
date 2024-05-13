@@ -1,19 +1,23 @@
-import Header from "@/components/layout/header"
+import Logo from "@/components/layout/logo"
+import { MobileSidebar } from "@/components/layout/mobile-sidebar"
 import Sidebar from "@/components/layout/sidebar"
 import { Outlet } from "react-router-dom"
 
 export default function DashboardLayout() {
 	return (
-		<>
-			<div className="flex h-screen lg:overflow-hidden">
+		<div className="!overflow-hidden">
+			<div className="flex h-cscreen lg:overflow-hidden">
 				<Sidebar />
-				<main className="w-[100vw] max-lg:pb-16 overflow-auto ">
-					<Header />
-					<div className="px-4 lg:px-6 max-lg:mt-20 lg:relative top-[-50px]">
+				<main className="container w-[100vw] overflow-auto">
+					<div className="flex items-center justify-between py-4 lg:hidden">
+						<Logo />
+						<MobileSidebar />
+					</div>
+					<div className="p-0 lg:p-4 lg:mt-4">
 						<Outlet />
 					</div>
 				</main>
 			</div>
-		</>
+		</div>
 	)
 }

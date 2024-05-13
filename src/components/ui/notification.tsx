@@ -11,7 +11,7 @@ export default function Notification({
 	date,
 }: Notification) {
 	return (
-		<div className="flex border rounded-lg border-l-4 border-l-yellow-400 p-4 text-sm">
+		<div className="flex border rounded border-l-4 border-l-yellow-400 p-4 text-sm">
 			<Checkbox className="mb-[1px] me-2" />
 			<div className="w-full">
 				<h4 className="font-medium mb-1">{title}</h4>

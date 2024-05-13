@@ -3,12 +3,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { navItems } from "@/database"
 import { MenuIcon } from "lucide-react"
 import { useState } from "react"
-
-// import { Playlist } from "../data/playlists";
-
-// interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-// 	// playlists: Playlist[];
-// }
+import Logo from "./logo"
+import UserDropdown from "./user-dropdown"
 
 export function MobileSidebar() {
 	const [open, setOpen] = useState(false)
@@ -17,15 +13,14 @@ export function MobileSidebar() {
 			<SheetTrigger asChild>
 				<MenuIcon className="text-secondary-foreground" />
 			</SheetTrigger>
-			<SheetContent side="left" className="!px-0">
+			<SheetContent side="left" className="!px-0 flex flex-col justify-between">
 				<div className="px-3 py-4 space-y-4">
-					<h2 className="mb-8 px-4 text-2xl font-semibold tracking-tight text-secondary-foreground">
-						Jinjigo
-					</h2>
+					<Logo />
 					<div className="space-y-1">
 						<DashboardNav items={navItems} setOpen={setOpen} />
 					</div>
 				</div>
+				<UserDropdown />
 			</SheetContent>
 		</Sheet>
 	)

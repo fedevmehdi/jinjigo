@@ -10,19 +10,19 @@ module.exports = {
 	prefix: "",
 	theme: {
 		fontFamily: {
-			sans: ["Poppins", "sans-serif"],
+			sans: ["Work Sans", "sans-serif"],
 		},
 		container: {
 			center: true,
-			padding: {
-				DEFAULT: "1rem",
-				sm: "2rem",
-				lg: "4rem",
-				xl: "5rem",
-				"2xl": "6rem",
+			padding: "2rem",
+			screens: {
+				"2xl": "1400px",
 			},
 		},
 		extend: {
+			boxShadow: {
+				scard: "0px 3px 20px rgba(0, 8, 82, 0.08)",
+			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
@@ -59,9 +59,10 @@ module.exports = {
 				},
 			},
 			borderRadius: {
-				lg: "var(--radius)",
-				md: "calc(var(--radius) - 2px)",
-				sm: "calc(var(--radius) - 4px)",
+				DEFAULT: "var(--radius)",
+				lg: "calc(var(--radius) + 8px)",
+				md: "calc(var(--radius) - 4px)",
+				sm: "calc(var(--radius) - 8px)",
 			},
 			keyframes: {
 				"accordion-down": {

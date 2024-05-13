@@ -27,25 +27,25 @@ export const UsersDB = [
 export const navItems: NavItem[] = [
 	{
 		title: "Home",
-		href: "/dashboard",
+		href: "/app",
 		icon: "home",
 		label: "home",
 	},
 	{
 		title: "Interview",
-		href: "/dashboard/interviews",
+		href: "/app/interviews",
 		icon: "presentation",
 		label: "presentation",
 	},
 	{
 		title: "Interview Template",
-		href: "/dashboard/interview-templates",
+		href: "/app/interview-templates",
 		icon: "bookDashed",
 		label: "bookDashed",
 	},
 	{
 		title: "Email Template",
-		href: "/dashboard/email-templates",
+		href: "/app/email-templates",
 		icon: "inbox",
 		label: "inbox",
 	},

@@ -1,15 +1,16 @@
 import { Link, useLocation } from "react-router-dom"
-import { Icons } from "../icons"
 import { NavItem } from "@/lib/types"
 import { Dispatch, SetStateAction } from "react"
 import { Button } from "../ui/button"
+import { Icons } from "../icons"
 
 interface DashboardNavProps {
 	items: NavItem[]
 	setOpen?: Dispatch<SetStateAction<boolean>>
+	collapse?: boolean
 }
 
-export function DashboardNav({ items, setOpen }: DashboardNavProps) {
+export function DashboardNav({ items, setOpen, collapse }: DashboardNavProps) {
 	let location = useLocation()
 
 	if (!items?.length) {
@@ -17,7 +18,7 @@ export function DashboardNav({ items, setOpen }: DashboardNavProps) {
 	}
 
 	return (
-		<nav className="grid items-start gap-2">
+		<nav className="grid items-start gap-1">
 			{items.map((item, index) => {
 				const Icon = Icons[item.icon || "arrowRight"]
 				return (
@@ -30,12 +31,16 @@ export function DashboardNav({ items, setOpen }: DashboardNavProps) {
 							}}
 						>
 							<Button
-								variant={location.pathname === item.href ? "default" : "ghost"}
-								className="flex items-center rounded-md px-8 py-2 font-medium w-full justify-start"
-								size="lg"
+								variant={location.pathname === item.href ? "primary" : "ghost"}
+								className={
+									collapse
+										? "grid place-content-center"
+										: "flex items-center rounded-md font-medium w-full justify-start"
+								}
+								size={collapse ? "icon" : "default"}
 							>
-								<Icon className="mr-2 h-4 w-4" />
-								<span>{item.title}</span>
+								<Icon className={`${!collapse && "mr-2"} h-4 w-4`} />
+								{!collapse && <span>{item.title}</span>}
 							</Button>
 						</Link>
 					)
