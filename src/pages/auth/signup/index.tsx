@@ -10,6 +10,7 @@ import Header from "../components/header"
 import AuthForm from "../components/form"
 import Stepper from "@/components/ui/stepper"
 import GoogleAuthButton from "../components/google-auth-button"
+import axios from "axios"
 
 function SignupFormSection({ setCurrentStep }: any) {
 	const form = useForm<z.infer<typeof authFormSchema>>({
@@ -20,10 +21,15 @@ function SignupFormSection({ setCurrentStep }: any) {
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof authFormSchema>) {
+	async function onSubmit(values: z.infer<typeof authFormSchema>) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
 		console.log(values)
+		const tokens = await axios.post("/auth/signup", {
+			...values,
+			username: "sdfsdf",
+		})
+		console.log(tokens)
 		setCurrentStep(1)
 	}
 	return (
