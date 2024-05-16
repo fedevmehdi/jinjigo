@@ -5,32 +5,39 @@ import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import getStartedSvg from "@/assets/images/many-people-collaborating.svg"
-import { authFormSchema } from "@/lib/formSchemas"
+import { signupFormSchema } from "@/lib/formSchemas"
 import Header from "../components/header"
 import AuthForm from "../components/form"
 import Stepper from "@/components/ui/stepper"
 import GoogleAuthButton from "../components/google-auth-button"
-import axios from "axios"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/state/store"
+import { signupUser } from "@/state/auth/authActions"
 
 function SignupFormSection({ setCurrentStep }: any) {
-	const form = useForm<z.infer<typeof authFormSchema>>({
-		resolver: zodResolver(authFormSchema),
+	const dispatch = useDispatch<AppDispatch>()
+	const { loading, error, userInfo } = useSelector(
+		(state: RootState) => state.auth
+	)
+
+	const form = useForm<z.infer<typeof signupFormSchema>>({
+		resolver: zodResolver(signupFormSchema),
 		defaultValues: {
+			username: "",
 			email: "",
 			password: "",
 		},
 	})
 
-	async function onSubmit(values: z.infer<typeof authFormSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values)
-		const tokens = await axios.post("/auth/signup", {
-			...values,
-			username: "sdfsdf",
-		})
-		console.log(tokens)
-		setCurrentStep(1)
+	async function onSubmit(values: z.infer<typeof signupFormSchema>) {
+		try {
+			dispatch(signupUser(values))
+			if (userInfo && !error) {
+				setCurrentStep(1)
+			}
+		} catch (error) {
+			console.error("Error:", error)
+		}
 	}
 	return (
 		<>
@@ -38,7 +45,13 @@ function SignupFormSection({ setCurrentStep }: any) {
 				title="Signup"
 				description="Enter your email and password to continue"
 			/>
-			<AuthForm form={form} onSubmit={onSubmit} />
+			<AuthForm
+				form={form}
+				onSubmit={onSubmit}
+				state="signup"
+				loading={loading}
+			/>
+			{error && <div>{error}</div>}
 			<div className="flex items-center gap-2 my-8">
 				<hr className="w-full border-[1.4px]" />
 				<h6 className="uppercase text-sm text-accent-foreground">Or</h6>
@@ -207,17 +220,13 @@ function GetStartedSection() {
 			/>
 			<img src={getStartedSvg} alt="people working" />
 			<div className="space-y-1 mt-6">
-				<Button
-					size="lg"
-					className="w-full"
-					onClick={() => redirect("/dashboard")}
-				>
+				<Button size="lg" className="w-full" onClick={() => redirect("/app")}>
 					Create Your First Interview
 				</Button>
 				<Button
 					variant="ghost"
 					className="w-full"
-					onClick={() => redirect("/dashboard")}
+					onClick={() => redirect("/app")}
 				>
 					Skip to dashboard
 				</Button>

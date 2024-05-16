@@ -9,13 +9,32 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-export default function AuthForm({ form, onSubmit }: any) {
+export default function AuthForm({ form, onSubmit, state, loading }: any) {
 	return (
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
 				className="space-y-2 last:pt-20"
 			>
+				{state === "signup" && (
+					<FormField
+						control={form.control}
+						name="username"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Username</FormLabel>
+								<FormControl>
+									<Input
+										type="text"
+										placeholder="user3890"
+										size={20}
+										{...field}
+									/>
+								</FormControl>
+							</FormItem>
+						)}
+					/>
+				)}
 				<FormField
 					control={form.control}
 					name="email"
@@ -48,8 +67,13 @@ export default function AuthForm({ form, onSubmit }: any) {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" className="w-full !mt-4" size="lg">
-					Signup
+				<Button
+					type="submit"
+					className="w-full !mt-4"
+					size="lg"
+					disabled={loading}
+				>
+					{state === "signup" ? "Signup" : "Login"}
 				</Button>
 			</form>
 		</Form>

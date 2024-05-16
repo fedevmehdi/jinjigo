@@ -10,6 +10,7 @@ import Header from "../components/header"
 
 export default function OverviewPage() {
 	const [cimOpen, setCimOpen] = useState(false)
+
 	return (
 		<div>
 			<Header title="Overview" />

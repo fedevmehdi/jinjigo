@@ -1,13 +1,5 @@
 import { Icons } from "@/components/icons"
 
-export interface User {
-	id: number
-	name: string
-	email: string
-	role: "HR" | "Candidate" | "Interviewer"
-	password?: string
-}
-
 export interface NavItem {
 	title: string
 	href?: string
@@ -21,4 +13,11 @@ export interface NavItem {
 export interface InterviewType {
 	name: string
 	value: string
+}
+
+export type User = {
+	token: string
+	email: string
+	_id: string
+	username: string
 }

@@ -1,26 +1,44 @@
 import { Button } from "@/components/ui/button"
-import { authFormSchema } from "@/lib/formSchemas"
+import { loginFormSchema } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { z } from "zod"
 import Header from "../components/header"
 import AuthForm from "../components/form"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/state/store"
+import { loginUser } from "@/state/auth/authActions"
+import { useEffect } from "react"
 
 export default function LoginPage() {
-	const form = useForm<z.infer<typeof authFormSchema>>({
-		resolver: zodResolver(authFormSchema),
+	const dispatch = useDispatch<AppDispatch>()
+	const { userInfo, error, loading } = useSelector(
+		(state: RootState) => state.auth
+	)
+	const navigate = useNavigate()
+
+	const form = useForm<z.infer<typeof loginFormSchema>>({
+		resolver: zodResolver(loginFormSchema),
 		defaultValues: {
 			email: "",
 			password: "",
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof authFormSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values)
+	function onSubmit(values: z.infer<typeof loginFormSchema>) {
+		try {
+			dispatch(loginUser(values))
+		} catch (error) {
+			console.error("Error:", error)
+		}
 	}
+
+	useEffect(() => {
+		if (userInfo?.token) {
+			navigate("/app")
+		}
+	}, [userInfo])
 	return (
 		<div>
 			<h1 className="text-2xl lg:text-4xl font-medium text-center mb-8">
@@ -33,7 +51,13 @@ export default function LoginPage() {
 						description="Enter your email and password to continue"
 						className="mt-8"
 					/>
-					<AuthForm form={form} onSubmit={onSubmit} />
+					<AuthForm
+						form={form}
+						onSubmit={onSubmit}
+						loading={loading}
+						state="login"
+					/>
+					{error && <div>{error}</div>}
 					<div className="flex items-center gap-2 my-8">
 						<hr className="w-full border-[1.4px]" />
 						<h6 className="uppercase text-sm text-accent-foreground">Or</h6>

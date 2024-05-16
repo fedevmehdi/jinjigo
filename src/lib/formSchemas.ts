@@ -1,7 +1,8 @@
 import { z } from "zod"
 import { checkForDuplicateEmail } from "./utils"
 
-export const authFormSchema = z.object({
+export const signupFormSchema = z.object({
+	username: z.string(),
 	email: z
 		.string()
 		.email({ message: "Invalid email format" }) // Basic format validation
@@ -42,6 +43,14 @@ export const authFormSchema = z.object({
 					"Password must contain at least 2 of: uppercase, lowercase, number, symbol and not be a common password",
 			}
 		),
+})
+
+export const loginFormSchema = z.object({
+	email: z
+		.string()
+		.email({ message: "Invalid email format" }) // Basic format validation
+		.max(100, "Email must be under 100 characters"),
+	password: z.string(),
 })
 
 export const createInterviewTemplateSchema = z.object({

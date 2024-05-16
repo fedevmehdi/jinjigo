@@ -9,12 +9,24 @@ import { Link } from "react-router-dom"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
+import { Button } from "../ui/button"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/state/store"
+import { User } from "@/lib/types"
+import { logout } from "@/state/auth/authSlice"
 
 interface UserDropdown {
 	collapse?: boolean
 }
 
 export default function UserDropdown({ collapse }: UserDropdown) {
+	const user: User = useSelector((state: RootState) => state.auth.userInfo!)
+	const dispatch = useDispatch<AppDispatch>()
+
+	const handleLogout = () => {
+		dispatch(logout())
+	}
+
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 	useEffect(() => {
 		const handleResize = () => {
@@ -35,7 +47,7 @@ export default function UserDropdown({ collapse }: UserDropdown) {
 							<AvatarImage src="https://github.com/shadcn.png" />
 							<AvatarFallback>CN</AvatarFallback>
 						</Avatar>
-						{!collapse && <h5 className="font-medium">Muhammad</h5>}
+						{!collapse && <h5 className="font-medium">{user.username}</h5>}
 					</div>
 					{!collapse && <ChevronRight className="cursor-pointer" />}
 				</div>
@@ -48,15 +60,20 @@ export default function UserDropdown({ collapse }: UserDropdown) {
 				className="min-w-[200px]"
 			>
 				<div className="p-2">
-					<h5 className="">Muhammad Mehdi</h5>
-					<h6 className="text-sm text-accent-foreground">
-						edoitachime@gmail.com
-					</h6>
+					<h5 className="">{user.username}</h5>
+					<h6 className="text-sm text-accent-foreground">{user.email}</h6>
 				</div>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
 					<Link to="/app/settings">Settings</Link>
 				</DropdownMenuItem>
+				<Button
+					size="sm"
+					className="w-full mt-2 bg-red-600 hover:bg-red-700"
+					onClick={handleLogout}
+				>
+					Logout
+				</Button>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)

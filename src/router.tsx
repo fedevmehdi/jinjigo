@@ -17,6 +17,7 @@ import ScheduleInterviewPage from "./pages/dashboard/interview/schedule"
 import Error404 from "./pages/error/not-found"
 import ErrorPage from "./pages/error/error"
 import SettingsPage from "./pages/settings"
+import PrivateRoute from "./pages/private-route"
 
 export const router = createBrowserRouter([
 	{
@@ -35,32 +36,40 @@ export const router = createBrowserRouter([
 				children: [{ index: true, element: <LoginPage /> }],
 			},
 			{
-				path: "app",
-				element: <DashboardLayout />,
+				element: <PrivateRoute />,
 				children: [
-					{ path: "", element: <OverviewPage /> },
-					{ path: "interviews", element: <InterviewPage /> },
-					{ path: "new-interview", element: <CreateInterviewPage /> },
-					{ path: "interview-templates", element: <InterviewTemplatePage /> },
 					{
-						path: "new-interview-template",
-						element: <CreateInterviewTemplatePage />,
-					},
-					{
-						path: "email-templates",
-						element: <EmailTemplatePage />,
-					},
-					{
-						path: "new-email-template",
-						element: <CreateEmailTemplatePage />,
-					},
-					{
-						path: "interview-schedule",
-						element: <ScheduleInterviewPage />,
-					},
-					{
-						path: "settings",
-						element: <SettingsPage />,
+						path: "app",
+						element: <DashboardLayout />,
+						children: [
+							{ path: "", element: <OverviewPage /> },
+							{ path: "interviews", element: <InterviewPage /> },
+							{ path: "new-interview", element: <CreateInterviewPage /> },
+							{
+								path: "interview-templates",
+								element: <InterviewTemplatePage />,
+							},
+							{
+								path: "new-interview-template",
+								element: <CreateInterviewTemplatePage />,
+							},
+							{
+								path: "email-templates",
+								element: <EmailTemplatePage />,
+							},
+							{
+								path: "new-email-template",
+								element: <CreateEmailTemplatePage />,
+							},
+							{
+								path: "interview-schedule",
+								element: <ScheduleInterviewPage />,
+							},
+							{
+								path: "settings",
+								element: <SettingsPage />,
+							},
+						],
 					},
 				],
 			},
