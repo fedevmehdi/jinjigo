@@ -11,8 +11,8 @@ import AuthForm from "../components/form"
 import Stepper from "@/components/ui/stepper"
 import GoogleAuthButton from "../components/google-auth-button"
 import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/state/store"
-import { signupUser } from "@/state/auth/authActions"
+import { AppDispatch, RootState } from "@/services/state/store"
+import { signupUser } from "@/services/state/auth/authActions"
 
 function SignupFormSection({ setCurrentStep }: any) {
 	const dispatch = useDispatch<AppDispatch>()

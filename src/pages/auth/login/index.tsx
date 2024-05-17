@@ -7,9 +7,9 @@ import { z } from "zod"
 import Header from "../components/header"
 import AuthForm from "../components/form"
 import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/state/store"
-import { loginUser } from "@/state/auth/authActions"
 import { useEffect } from "react"
+import { loginUser } from "@/services/state/auth/authActions.ts";
+import { AppDispatch, RootState } from "@/services/state/store.ts";
 
 export default function LoginPage() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -36,7 +36,7 @@ export default function LoginPage() {
 
 	useEffect(() => {
 		if (userInfo?.token) {
-			navigate("/app")
+			navigate("/")
 		}
 	}, [userInfo])
 	return (

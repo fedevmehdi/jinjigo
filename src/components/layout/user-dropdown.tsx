@@ -11,9 +11,9 @@ import { ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/state/store"
+import { AppDispatch, RootState } from "@/services/state/store"
 import { User } from "@/lib/types"
-import { logout } from "@/state/auth/authSlice"
+import { logout } from "@/services/state/auth/authSlice"
 
 interface UserDropdown {
 	collapse?: boolean

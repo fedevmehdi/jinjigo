@@ -1,5 +1,5 @@
 import { User } from "@/lib/types"
-import { RootState } from "@/state/store"
+import { RootState } from "@/services/state/store"
 import { useSelector } from "react-redux"
 import { Navigate, Outlet } from "react-router-dom"
 

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { loginUser, signupUser } from "./authActions"
-import { User } from "@/lib/types"
+import { loginUser, signupUser } from "./authActions.ts"
+import { User } from "@/lib/types.ts"
 
 const userString = localStorage.getItem("user")
 const user: User = userString ? JSON.parse(userString) : null
