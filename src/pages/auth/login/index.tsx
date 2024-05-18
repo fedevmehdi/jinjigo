@@ -8,8 +8,8 @@ import Header from "../components/header"
 import AuthForm from "../components/form"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-import { loginUser } from "@/services/state/auth/authActions.ts";
-import { AppDispatch, RootState } from "@/services/state/store.ts";
+import { loginUser } from "@/services/state/auth/authActions.ts"
+import { AppDispatch, RootState } from "@/services/state/store.ts"
 
 export default function LoginPage() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -54,7 +54,7 @@ export default function LoginPage() {
 					<AuthForm
 						form={form}
 						onSubmit={onSubmit}
-						loading={loading}
+						loading={false}
 						state="login"
 					/>
 					{error && <div>{error}</div>}
