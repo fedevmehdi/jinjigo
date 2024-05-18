@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { loginUser, signupUser } from "./authActions.ts"
 import { User } from "@/lib/types.ts"
+import { toast } from "sonner"
 
 const userString = localStorage.getItem("user")
 const user: User = userString ? JSON.parse(userString) : null
@@ -17,6 +18,7 @@ export const authSlice = createSlice({
 	reducers: {
 		logout: state => {
 			localStorage.removeItem("user")
+			toast.success("Successfully Logget Out")
 			state.loading = false
 			state.userInfo = null
 			state.error = null
@@ -27,23 +29,29 @@ export const authSlice = createSlice({
 			.addCase(signupUser.fulfilled, (state, { payload }) => {
 				state.userInfo = payload
 				state.loading = false
+				state.error = null
+				toast.success("Successfully Signed Up")
 				return state
 			})
 			.addCase(signupUser.rejected, (state, { payload }: any) => {
 				state.loading = false
-				state.error = payload
+				state.error = payload.error
+				toast.error(payload.error)
 			})
 			.addCase(signupUser.pending, state => {
 				state.loading = true
+				state.error = null
 			})
 			.addCase(loginUser.fulfilled, (state, { payload }) => {
 				state.userInfo = payload
 				state.loading = false
+				toast.success("Successfully Logged In")
 				return state
 			})
 			.addCase(loginUser.rejected, (state, { payload }: any) => {
 				state.loading = false
-				state.error = payload
+				state.error = payload.error
+				toast.error(payload.error)
 			})
 			.addCase(loginUser.pending, state => {
 				state.loading = true

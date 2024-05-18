@@ -24,7 +24,6 @@ const GoogleAuthButton = () => {
 			size="lg"
 			variant="secondary"
 			onClick={() => googleLogin()}
-			asChild
 		>
 			<div className="flex gap-1 items-center">
 				<svg

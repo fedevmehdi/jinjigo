@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import getStartedSvg from "@/assets/images/many-people-collaborating.svg"
 import { signupFormSchema } from "@/lib/formSchemas"
 import Header from "../components/header"
@@ -32,13 +32,16 @@ function SignupFormSection({ setCurrentStep }: any) {
 	async function onSubmit(values: z.infer<typeof signupFormSchema>) {
 		try {
 			dispatch(signupUser(values))
-			if (userInfo && !error) {
-				setCurrentStep(1)
-			}
 		} catch (error) {
 			console.error("Error:", error)
 		}
 	}
+
+	useEffect(() => {
+		if (userInfo && !error) {
+			setCurrentStep(1)
+		}
+	}, [userInfo])
 	return (
 		<>
 			<Header
@@ -51,7 +54,6 @@ function SignupFormSection({ setCurrentStep }: any) {
 				state="signup"
 				loading={loading}
 			/>
-			{error && <div>{error}</div>}
 			<div className="flex items-center gap-2 my-8">
 				<hr className="w-full border-[1.4px]" />
 				<h6 className="uppercase text-sm text-accent-foreground">Or</h6>
@@ -65,7 +67,6 @@ function SignupFormSection({ setCurrentStep }: any) {
 						className="w-full cursor-pointer"
 						size="lg"
 						variant="secondary"
-						asChild
 					>
 						<div className="flex gap-2 items-center">
 							<svg height="26px" width="26px" viewBox="0 0 512 512">
@@ -220,13 +221,13 @@ function GetStartedSection() {
 			/>
 			<img src={getStartedSvg} alt="people working" />
 			<div className="space-y-1 mt-6">
-				<Button size="lg" className="w-full" onClick={() => redirect("/app")}>
+				<Button size="lg" className="w-full" onClick={() => redirect("/")}>
 					Create Your First Interview
 				</Button>
 				<Button
 					variant="ghost"
 					className="w-full"
-					onClick={() => redirect("/app")}
+					onClick={() => redirect("/")}
 				>
 					Skip to dashboard
 				</Button>

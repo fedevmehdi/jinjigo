@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom"
-import ThemeProvider from "./components/layout/theme-toggle/theme-provider"
+import ThemeProvider from "@/components/layout/theme-toggle/theme-provider"
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import { QueryClient, QueryClientProvider } from "react-query"
+import { Toaster } from "@/components/ui/sonner"
 
 const queryClient = new QueryClient()
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
 			<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 				<QueryClientProvider client={queryClient}>
 					<Outlet />
+					<Toaster richColors position="top-right" />
 				</QueryClientProvider>
 			</ThemeProvider>
 		</GoogleOAuthProvider>

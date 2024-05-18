@@ -13,9 +13,7 @@ import { AppDispatch, RootState } from "@/services/state/store.ts"
 
 export default function LoginPage() {
 	const dispatch = useDispatch<AppDispatch>()
-	const { userInfo, error, loading } = useSelector(
-		(state: RootState) => state.auth
-	)
+	const { userInfo, loading } = useSelector((state: RootState) => state.auth)
 	const navigate = useNavigate()
 
 	const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -29,16 +27,17 @@ export default function LoginPage() {
 	function onSubmit(values: z.infer<typeof loginFormSchema>) {
 		try {
 			dispatch(loginUser(values))
-		} catch (error) {
-			console.error("Error:", error)
+		} catch (err) {
+			console.error("Error:", err)
 		}
 	}
 
 	useEffect(() => {
-		if (userInfo?.token) {
+		if (userInfo?.token && !loading) {
 			navigate("/")
 		}
 	}, [userInfo])
+
 	return (
 		<div>
 			<h1 className="text-2xl lg:text-4xl font-medium text-center mb-8">
@@ -54,10 +53,9 @@ export default function LoginPage() {
 					<AuthForm
 						form={form}
 						onSubmit={onSubmit}
-						loading={false}
+						loading={loading}
 						state="login"
 					/>
-					{error && <div>{error}</div>}
 					<div className="flex items-center gap-2 my-8">
 						<hr className="w-full border-[1.4px]" />
 						<h6 className="uppercase text-sm text-accent-foreground">Or</h6>
@@ -72,7 +70,6 @@ export default function LoginPage() {
 								className="w-full cursor-pointer"
 								size="lg"
 								variant="secondary"
-								asChild
 							>
 								<div className="flex gap-1 items-center">
 									<svg
@@ -107,7 +104,6 @@ export default function LoginPage() {
 								className="w-full cursor-pointer"
 								size="lg"
 								variant="secondary"
-								asChild
 							>
 								<div className="flex gap-2 items-center">
 									<svg height="26px" width="26px" viewBox="0 0 512 512">

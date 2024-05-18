@@ -28,6 +28,7 @@ export default function AuthForm({ form, onSubmit, state, loading }: any) {
 										type="text"
 										placeholder="user3890"
 										size={20}
+										disabled={loading}
 										{...field}
 									/>
 								</FormControl>
@@ -46,6 +47,7 @@ export default function AuthForm({ form, onSubmit, state, loading }: any) {
 									type="email"
 									placeholder="example@email.com"
 									size={40}
+									disabled={loading}
 									{...field}
 								/>
 							</FormControl>
@@ -59,7 +61,7 @@ export default function AuthForm({ form, onSubmit, state, loading }: any) {
 						<FormItem className="gap-0">
 							<FormLabel>Password</FormLabel>
 							<FormControl>
-								<Input type="password" {...field} />
+								<Input type="password" {...field} disabled={loading} />
 							</FormControl>
 							<div className="h-8">
 								<FormMessage className="text-xs" />
@@ -71,9 +73,9 @@ export default function AuthForm({ form, onSubmit, state, loading }: any) {
 					type="submit"
 					className="w-full !mt-4"
 					size="lg"
-					disabled={loading}
+					loading={loading}
 				>
-					{state === "signup" ? "Signup" : "Login"}
+					{!loading ? (state === "signup" ? "Signup" : "Login") : "Loading..."}
 				</Button>
 			</form>
 		</Form>
