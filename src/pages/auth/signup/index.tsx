@@ -7,12 +7,12 @@ import { useEffect, useState } from "react"
 import getStartedSvg from "@/assets/images/many-people-collaborating.svg"
 import { signupFormSchema } from "@/lib/formSchemas"
 import Header from "../components/header"
-import AuthForm from "../components/form"
 import Stepper from "@/components/ui/stepper"
 import GoogleAuthButton from "../components/google-auth-button"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/services/state/store"
 import { signupUser } from "@/services/state/auth/authActions"
+import SignupForm from "../components/signupForm"
 
 function SignupFormSection({ setCurrentStep }: any) {
 	const dispatch = useDispatch<AppDispatch>()
@@ -48,12 +48,7 @@ function SignupFormSection({ setCurrentStep }: any) {
 				title="Signup"
 				description="Enter your email and password to continue"
 			/>
-			<AuthForm
-				form={form}
-				onSubmit={onSubmit}
-				state="signup"
-				loading={loading}
-			/>
+			<SignupForm form={form} onSubmit={onSubmit} loading={loading} />
 			<div className="flex items-center gap-2 my-8">
 				<hr className="w-full border-[1.4px]" />
 				<h6 className="uppercase text-sm text-accent-foreground">Or</h6>

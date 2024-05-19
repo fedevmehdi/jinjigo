@@ -2,7 +2,8 @@ import { z } from "zod"
 import { checkForDuplicateEmail } from "./utils"
 
 export const signupFormSchema = z.object({
-	username: z.string(),
+	fullName: z.string().max(50),
+	username: z.string().max(20),
 	email: z
 		.string()
 		.email({ message: "Invalid email format" }) // Basic format validation

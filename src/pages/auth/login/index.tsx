@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import { z } from "zod"
 import Header from "../components/header"
-import AuthForm from "../components/form"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { loginUser } from "@/services/state/auth/authActions.ts"
 import { AppDispatch, RootState } from "@/services/state/store.ts"
+import LoginForm from "../components/loginForm"
 
 export default function LoginPage() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -50,12 +50,7 @@ export default function LoginPage() {
 						description="Enter your email and password to continue"
 						className="mt-8"
 					/>
-					<AuthForm
-						form={form}
-						onSubmit={onSubmit}
-						loading={loading}
-						state="login"
-					/>
+					<LoginForm form={form} onSubmit={onSubmit} loading={loading} />
 					<div className="flex items-center gap-2 my-8">
 						<hr className="w-full border-[1.4px]" />
 						<h6 className="uppercase text-sm text-accent-foreground">Or</h6>
