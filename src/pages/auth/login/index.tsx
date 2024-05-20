@@ -41,11 +41,11 @@ export default function LoginPage() {
 		console.error("Google login failed:", response);
 	};
 
-	useEffect(() => {
-		if (userInfo?.token && !loading) {
-			navigate("/");
-		}
-	}, [userInfo]);
+	// useEffect(() => {
+	// 	if (userInfo?.token && !loading) {
+	// 		navigate("/");
+	// 	}
+	// }, [userInfo]);
 
 	return (
 		<div>
