@@ -59,8 +59,8 @@ export const authSlice = createSlice({
 			.addCase(googleLogin.fulfilled, (state, { payload }: any) => {
 				state.userInfo = payload;
 				state.loading = false;
-				toast.success("Successfully Logged In")
 				state.error = null;
+				toast.success("Successfully Logged In");
 			})
 			.addCase(googleLogin.rejected, (state, { payload }: any) => {
 				state.loading = false;

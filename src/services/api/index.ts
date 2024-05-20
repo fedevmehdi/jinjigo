@@ -1,5 +1,5 @@
 import axios from "axios";
-import {LoginUser, SignupUser} from "@/services/models/auth.model.ts";
+import { LoginUser, SignupUser } from "@/services/models/auth.model";
 
 const API = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -9,10 +9,10 @@ const API = axios.create({
 });
 
 export const login = (formData: LoginUser) =>
-    API.post('/auth/login', formData)
+    API.post('/auth/login', formData);
 
 export const signup = (formData: SignupUser) =>
-    API.post('/auth/signup', formData)
+    API.post('/auth/signup', formData);
 
-export const loginByGoogle = (formData: any) =>
-    API.post('/auth/google/callback', formData)
+export const loginByGoogle = (token: any) =>
+    API.get(`/auth/google/callback?token=${token}`);
