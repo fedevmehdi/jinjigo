@@ -13,3 +13,6 @@ export const login = (formData: LoginUser) =>
 
 export const signup = (formData: SignupUser) =>
     API.post('/auth/signup', formData)
+
+export const loginByGoogle = (formData: any) =>
+    API.post('/auth/google/callback', formData)

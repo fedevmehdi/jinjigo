@@ -113,7 +113,7 @@ function CreateInterview() {
 							className="absolute right-0 -top-0 lg:-top-[4px] flex items-center gap-2"
 							variant="ghost"
 							size="sm"
-							onClick={() => navigate("/dashboard/new-interview-template")}
+							onClick={() => navigate("/new-interview-template")}
 						>
 							<PlusSquare className="w-4 h-4 mb-[1px]" /> New Template
 						</Button>
@@ -147,7 +147,7 @@ function CreateInterview() {
 				<Button variant="secondary">Cancel</Button>
 				<Button
 					className="flex items-center gap-1"
-					onClick={() => navigate("/dashboard/new-interview")}
+					onClick={() => navigate("/new-interview")}
 				>
 					Create Interview
 				</Button>

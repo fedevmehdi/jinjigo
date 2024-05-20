@@ -42,3 +42,21 @@ export const loginUser = createAsyncThunk(
 		}
 	}
 )
+
+export const googleLogin = createAsyncThunk(
+	'auth/googleLogin',
+	async (tokenId: string, thunkAPI) => {
+		try {
+			const response = await api.loginByGoogle(tokenId);
+			if (response.status === 200) {
+				const user = { ...response.data.user, token: response.data.token };
+				localStorage.setItem('token', response.data.token);
+				return user;
+			} else {
+				return thunkAPI.rejectWithValue(response.data);
+			}
+		} catch (error: any) {
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	}
+);

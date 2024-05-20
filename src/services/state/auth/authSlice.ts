@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { loginUser, signupUser } from "./authActions.ts"
+import {googleLogin, loginUser, signupUser} from "./authActions.ts"
 import { User } from "@/lib/types.ts"
 import { toast } from "sonner"
 
@@ -56,6 +56,20 @@ export const authSlice = createSlice({
 			.addCase(loginUser.pending, state => {
 				state.loading = true
 			})
+			.addCase(googleLogin.fulfilled, (state, { payload }: any) => {
+				state.userInfo = payload;
+				state.loading = false;
+				toast.success("Successfully Logged In")
+				state.error = null;
+			})
+			.addCase(googleLogin.rejected, (state, { payload }: any) => {
+				state.loading = false;
+				state.error = payload.error;
+			})
+			.addCase(googleLogin.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			});
 	},
 })
 
