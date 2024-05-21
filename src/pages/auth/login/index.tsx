@@ -46,10 +46,10 @@ export default function LoginPage() {
 	}, [location.search])
 
 	useEffect(() => {
-		if (userInfo) {
+		if (userInfo?.token) {
 			navigate("/")
 		}
-	}, [loading])
+	}, [userInfo, navigate])
 
 	return (
 		<div>
