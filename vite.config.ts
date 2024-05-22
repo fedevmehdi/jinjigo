@@ -1,6 +1,6 @@
-import path from "path"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import path from "path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
 	server: {
@@ -9,6 +9,11 @@ export default defineConfig({
 				target: 'https://jinjigo-server.onrender.com',
 				changeOrigin: true,
 			},
+			'/google-oauth': {
+				target: 'https://accounts.google.com',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/google-oauth/, '')
+			}
 		},
 	},
 	plugins: [react()],
@@ -17,4 +22,4 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src"),
 		},
 	},
-})
+});

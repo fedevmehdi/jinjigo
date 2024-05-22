@@ -1,21 +1,21 @@
-import { Button } from "@/components/ui/button"
-import { loginFormSchema } from "@/lib/formSchemas"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { Link, useNavigate, useLocation } from "react-router-dom"
-import { z } from "zod"
-import Header from "../components/header"
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { loginUser, googleLogin } from "@/services/state/auth/authActions"
-import { AppDispatch, RootState } from "@/services/state/store"
-import LoginForm from "../components/loginForm"
+import { Button } from "@/components/ui/button";
+import { loginFormSchema } from "@/lib/formSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { z } from "zod";
+import Header from "../components/header";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { loginUser, googleLogin } from "@/services/state/auth/authActions";
+import { AppDispatch, RootState } from "@/services/state/store";
+import LoginForm from "../components/loginForm";
 
 export default function LoginPage() {
-	const dispatch = useDispatch<AppDispatch>()
-	const { userInfo, loading } = useSelector((state: RootState) => state.auth)
-	const navigate = useNavigate()
-	const location = useLocation()
+	const dispatch = useDispatch<AppDispatch>();
+	const { userInfo, loading } = useSelector((state: RootState) => state.auth);
+	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
 
 	const form = useForm<z.infer<typeof loginFormSchema>>({
 		resolver: zodResolver(loginFormSchema),
@@ -23,33 +23,39 @@ export default function LoginPage() {
 			email: "",
 			password: "",
 		},
-	})
+	});
 
 	function onSubmit(values: z.infer<typeof loginFormSchema>) {
 		try {
-			dispatch(loginUser(values))
+			dispatch(loginUser(values));
 		} catch (err) {
-			console.error("Error:", err)
+			console.error("Error:", err);
 		}
 	}
 
 	const handleGoogleLogin = () => {
-		window.location.href = "https://jinjigo-server.onrender.com/auth/google"
-	}
+		window.location.href = "https://jinjigo-server.onrender.com/auth/google";
+	};
 
 	useEffect(() => {
-		const searchParams = new URLSearchParams(location.search)
-		const token = searchParams.get("token")
+		const token = searchParams.get("token");
+
 		if (token) {
-			dispatch(googleLogin(token))
+			dispatch(googleLogin(token)).then((response) => {
+				if (response.payload.token) {
+					localStorage.setItem('token', response.payload.token);
+					localStorage.setItem('user', JSON.stringify(response.payload.user));
+					navigate("/");
+				}
+			});
 		}
-	}, [location.search])
+	}, [searchParams, dispatch, navigate]);
 
 	useEffect(() => {
-		if (userInfo?.token) {
-			navigate("/")
+		if (userInfo?.token && !loading) {
+			navigate("/");
 		}
-	}, [userInfo, navigate])
+	}, [userInfo, loading, navigate]);
 
 	return (
 		<div>
@@ -154,5 +160,5 @@ export default function LoginPage() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
