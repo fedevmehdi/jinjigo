@@ -7,11 +7,10 @@ export const signupUser = createAsyncThunk(
 	async (user: SignupUser, thunkAPI) => {
 		try {
 			const request = await api.signup(user);
-			const response = request.data;
+			const response = await request.data;
 			if (request.status === 200) {
 				const user = { ...response.user, token: response.token };
 				localStorage.setItem("token", response.token);
-				localStorage.setItem("user", JSON.stringify(user));
 				return user;
 			} else {
 				return thunkAPI.rejectWithValue(response);
@@ -28,11 +27,10 @@ export const loginUser = createAsyncThunk(
 	async (user: LoginUser, thunkAPI) => {
 		try {
 			const request = await api.login(user);
-			const response = request.data;
+			const response = await request.data;
 			if (request.status === 200) {
 				const user = { ...response.user, token: response.token };
 				localStorage.setItem("token", response.token);
-				localStorage.setItem("user", JSON.stringify(user));
 				return user;
 			} else {
 				return thunkAPI.rejectWithValue(response);
@@ -45,14 +43,13 @@ export const loginUser = createAsyncThunk(
 );
 
 export const googleLogin = createAsyncThunk(
-	"auth/googleLogin",
+	'auth/googleLogin',
 	async (tokenId: string, thunkAPI) => {
 		try {
 			const response = await api.loginByGoogle(tokenId);
 			if (response.status === 200) {
 				const user = { ...response.data.user, token: response.data.token };
-				localStorage.setItem("token", response.data.token);
-				localStorage.setItem("user", JSON.stringify(user));
+				localStorage.setItem('token', response.data.token);
 				return user;
 			} else {
 				return thunkAPI.rejectWithValue(response.data);

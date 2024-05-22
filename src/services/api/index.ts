@@ -10,4 +10,4 @@ const API = axios.create({
 
 export const login = (formData: LoginUser) => API.post('/auth/login', formData);
 export const signup = (formData: SignupUser) => API.post('/auth/signup', formData);
-export const loginByGoogle = (token: string) => API.get(`/auth/google/callback?token=${token}`);
+export const loginByGoogle = (token: string) => API.post('/auth/validate-google-token', { token });
