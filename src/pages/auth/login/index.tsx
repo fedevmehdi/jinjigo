@@ -34,28 +34,27 @@ export default function LoginPage() {
 	}
 
 	const handleGoogleLogin = () => {
-		window.location.href = "https://jinjigo-server.onrender.com/auth/google";
+		window.location.href = "http://localhost:3000/auth/google";
 	};
 
 	useEffect(() => {
 		const token = searchParams.get("token");
-
 		if (token) {
-			dispatch(googleLogin(token)).then((response) => {
-				if (response.payload.token) {
-					localStorage.setItem('token', response.payload.token);
-					localStorage.setItem('user', JSON.stringify(response.payload.user));
-					navigate("/");
+			dispatch(googleLogin(token)).then(response => {
+				if (response.payload) {
+					localStorage.setItem('token', JSON.stringify(response.payload.accessToken));
 				}
+			}).then(() => {
+				navigate('/')
 			});
 		}
-	}, [searchParams, dispatch, navigate]);
+	}, [searchParams]);
 
-	useEffect(() => {
-		if (userInfo?.token && !loading) {
-			navigate("/");
-		}
-	}, [userInfo, loading, navigate]);
+	// useEffect(() => {
+	// 	if (userInfo && !loading) {
+	// 		navigate("/");
+	// 	}
+	// }, [userInfo, loading, navigate]);
 
 	return (
 		<div>

@@ -6,13 +6,8 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/auth': {
-				target: 'https://jinjigo-server.onrender.com',
+				target: 'http://localhost:3000',
 				changeOrigin: true,
-			},
-			'/google-oauth': {
-				target: 'https://accounts.google.com',
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/google-oauth/, '')
 			}
 		},
 	},

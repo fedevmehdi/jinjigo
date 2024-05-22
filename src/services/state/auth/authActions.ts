@@ -9,9 +9,7 @@ export const signupUser = createAsyncThunk(
 			const request = await api.signup(user);
 			const response = await request.data;
 			if (request.status === 200) {
-				const user = { ...response.user, token: response.token };
-				localStorage.setItem("token", response.token);
-				return user;
+				return response.user;
 			} else {
 				return thunkAPI.rejectWithValue(response);
 			}
@@ -29,9 +27,7 @@ export const loginUser = createAsyncThunk(
 			const request = await api.login(user);
 			const response = await request.data;
 			if (request.status === 200) {
-				const user = { ...response.user, token: response.token };
-				localStorage.setItem("token", response.token);
-				return user;
+				return response.user;
 			} else {
 				return thunkAPI.rejectWithValue(response);
 			}
@@ -48,9 +44,7 @@ export const googleLogin = createAsyncThunk(
 		try {
 			const response = await api.loginByGoogle(tokenId);
 			if (response.status === 200) {
-				const user = { ...response.data.user, token: response.data.token };
-				localStorage.setItem('token', response.data.token);
-				return user;
+				return response.data.user;
 			} else {
 				return thunkAPI.rejectWithValue(response.data);
 			}
