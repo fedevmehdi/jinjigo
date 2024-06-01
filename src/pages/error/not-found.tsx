@@ -8,7 +8,7 @@ export default function Error404() {
 		<div className="container">
 			<div className="mt-8">
 				<a className="font-medium text-lg" href="/">
-					JINJIGO
+					JNJIGO
 				</a>
 			</div>
 			<div className="mt-5 grid grid-cols-1 md:grid-cols-2 items-start">

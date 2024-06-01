@@ -254,7 +254,7 @@ export default function SignupView() {
 	return (
 		<div>
 			<h1 className="text-2xl lg:text-4xl font-medium text-center mb-8">
-				Jinjigo
+				Jnjigo
 			</h1>
 			<div className="bg-white dark:bg-inherit dark:border dark:m-2 dark:md:m-8 rounded-lg p-4 pb-20">
 				<Stepper

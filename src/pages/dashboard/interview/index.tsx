@@ -38,7 +38,7 @@ export default function InterviewPage() {
 					<Button
 						variant="ghost"
 						className="mb-4"
-						onClick={() => navigate("/dashboard/new-interview-template")}
+						onClick={() => navigate("/new-interview")}
 					>
 						<div className="flex items-center gap-2">
 							<PlusSquare />
