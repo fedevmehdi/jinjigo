@@ -188,7 +188,7 @@ export default function CreateInterviewTemplatePage() {
 						<Button
 							variant="secondary"
 							className="w-full"
-							onClick={() => navigate("/dashboard/interview-templates")}
+							onClick={() => navigate("/interview-templates")}
 						>
 							Cancel
 						</Button>

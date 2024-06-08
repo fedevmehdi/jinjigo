@@ -19,7 +19,7 @@ export default function EmailTemplatePage() {
 					<Button
 						variant="ghost"
 						className="mb-4"
-						onClick={() => navigate("/dashboard/new-email-template")}
+						onClick={() => navigate("/new-email-template")}
 					>
 						<div className="flex items-center gap-2">
 							<PlusSquare />

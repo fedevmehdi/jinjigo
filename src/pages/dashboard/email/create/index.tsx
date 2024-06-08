@@ -105,7 +105,7 @@ export default function CreateEmailTemplatePage() {
 						<Button
 							variant="secondary"
 							className="w-full"
-							onClick={() => navigate("/dashboard/email-templates")}
+							onClick={() => navigate("/email-templates")}
 						>
 							Cancel
 						</Button>

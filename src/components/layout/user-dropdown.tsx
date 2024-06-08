@@ -65,7 +65,7 @@ export default function UserDropdown({ collapse }: UserDropdown) {
 				</div>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>
-					<Link to="/app/settings">Settings</Link>
+					<Link to="/settings">Settings</Link>
 				</DropdownMenuItem>
 				<Button
 					size="sm"
