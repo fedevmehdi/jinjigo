@@ -18,12 +18,11 @@ import Error404 from "./pages/error/not-found"
 import ErrorPage from "./pages/error/error"
 import SettingsPage from "./pages/settings"
 import PrivateRoute from "./pages/private-route"
-import ProtectedRoute, {ProtectedRouteProps} from "@/guards/authGuard.tsx";
+import ProtectedRoute, { ProtectedRouteProps } from "@/guards/authGuard.tsx"
 
-const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
-	isAuthenticated: localStorage.getItem('token') ? true : false,
-	authenticationPath: '/login',
-};
+const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
+	authenticationPath: "/login",
+}
 
 export const router = createBrowserRouter([
 	{
@@ -43,7 +42,12 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/",
-				element: <ProtectedRoute {...defaultProtectedRouteProps} outlet={<PrivateRoute />} />,
+				element: (
+					<ProtectedRoute
+						{...defaultProtectedRouteProps}
+						outlet={<PrivateRoute />}
+					/>
+				),
 				children: [
 					{
 						element: <DashboardLayout />,
@@ -51,11 +55,23 @@ export const router = createBrowserRouter([
 							{ path: "/", element: <OverviewPage /> },
 							{ path: "interviews", element: <InterviewPage /> },
 							{ path: "new-interview", element: <CreateInterviewPage /> },
-							{ path: "interview-templates", element: <InterviewTemplatePage /> },
-							{ path: "new-interview-template", element: <CreateInterviewTemplatePage /> },
+							{
+								path: "interview-templates",
+								element: <InterviewTemplatePage />,
+							},
+							{
+								path: "new-interview-template",
+								element: <CreateInterviewTemplatePage />,
+							},
 							{ path: "email-templates", element: <EmailTemplatePage /> },
-							{ path: "new-email-template", element: <CreateEmailTemplatePage /> },
-							{ path: "interview-schedule", element: <ScheduleInterviewPage /> },
+							{
+								path: "new-email-template",
+								element: <CreateEmailTemplatePage />,
+							},
+							{
+								path: "interview-schedule",
+								element: <ScheduleInterviewPage />,
+							},
 							{ path: "settings", element: <SettingsPage /> },
 						],
 					},

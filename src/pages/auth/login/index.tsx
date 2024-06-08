@@ -13,7 +13,7 @@ import LoginForm from "../components/loginForm"
 
 export default function LoginPage() {
 	const dispatch = useDispatch<AppDispatch>()
-	const { loading } = useSelector((state: RootState) => state.auth)
+	const { userInfo, loading } = useSelector((state: RootState) => state.auth)
 	const navigate = useNavigate()
 	const [searchParams] = useSearchParams()
 
@@ -34,8 +34,14 @@ export default function LoginPage() {
 	}
 
 	const handleGoogleLogin = () => {
-		window.location.href = "http://localhost:3000/auth/google"
+		window.location.href = process.env.VITE_API_URL + "/auth/google"
 	}
+
+	useEffect(() => {
+		if (userInfo) {
+			window.location.href = "/"
+		}
+	}, [userInfo])
 
 	useEffect(() => {
 		const token = searchParams.get("token")

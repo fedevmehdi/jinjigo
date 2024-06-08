@@ -1,15 +1,21 @@
-import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux"
+import { Navigate } from "react-router-dom"
+import { RootState } from "@/services/state/store.ts"
 
 export type ProtectedRouteProps = {
-    isAuthenticated: boolean;
-    authenticationPath: string;
-    outlet: JSX.Element;
-};
+	authenticationPath: string
+	outlet: JSX.Element
+}
 
-export default function ProtectedRoute({ isAuthenticated, authenticationPath, outlet }: ProtectedRouteProps) {
-    if (isAuthenticated) {
-        return outlet;
-    } else {
-        return <Navigate to={{ pathname: authenticationPath }} replace />;
-    }
+export default function ProtectedRoute({
+	authenticationPath,
+	outlet,
+}: ProtectedRouteProps) {
+	const userInfo = useSelector((state: RootState) => state.auth.userInfo)
+
+	if (userInfo) {
+		return outlet
+	} else {
+		return <Navigate to={{ pathname: authenticationPath }} replace />
+	}
 }
