@@ -89,3 +89,11 @@ export const interviewTypes: InterviewType[] = [
 		value: "case",
 	},
 ]
+
+export const frequency: string[] = [
+	"hourly",
+	"6 hours",
+	"daily",
+	"2 days",
+	"3 days",
+]

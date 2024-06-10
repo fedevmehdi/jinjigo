@@ -80,6 +80,11 @@ export const createInterviewInterviewSchema = z.object({
 	interviewDuration: z.number(),
 	interviewer1: z.string().email(),
 	interviewer2: z.string().email(),
+	candidateEmailTemplate: z.string(),
+	interviewerEmailTemplate: z.string(),
+	feedbackDeadline: z.number(),
+	escalationEmail: z.string().email(),
+	escalationDeadline: z.number(),
 })
 
 export const createEmailTemplateSchema = z.object({

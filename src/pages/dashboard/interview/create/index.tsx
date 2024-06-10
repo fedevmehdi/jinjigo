@@ -3,6 +3,7 @@ import DragDropFiles from "@/components/ui/drag-drop-files"
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -17,7 +18,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { interviewTypes } from "@/database"
+import { frequency, interviewTypes } from "@/database"
 import {
 	createInterviewCandidateSchema,
 	createInterviewInterviewSchema,
@@ -68,12 +69,12 @@ export default function CreateInterviewPage() {
 							<form className="space-y-4">
 								<FormField
 									control={candidateForm.control}
-									name="email"
+									name="name"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Email Address</FormLabel>
+											<FormLabel>Name</FormLabel>
 											<FormControl>
-												<Input required type="email" {...field} />
+												<Input required {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -81,12 +82,12 @@ export default function CreateInterviewPage() {
 								/>
 								<FormField
 									control={candidateForm.control}
-									name="name"
+									name="email"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Name</FormLabel>
+											<FormLabel>Email Address</FormLabel>
 											<FormControl>
-												<Input required {...field} />
+												<Input required type="email" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -112,7 +113,7 @@ export default function CreateInterviewPage() {
 										<FormItem>
 											<FormLabel>Current Employer</FormLabel>
 											<FormControl>
-												<Input required {...field} />
+												<Input {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -125,7 +126,7 @@ export default function CreateInterviewPage() {
 										<FormItem>
 											<FormLabel>Candidate Information URL</FormLabel>
 											<FormControl>
-												<Input required {...field} />
+												<Input {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -215,6 +216,148 @@ export default function CreateInterviewPage() {
 											<FormControl>
 												<Input required {...field} />
 											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</form>
+						</Form>
+					</div>
+					<hr className="my-14" />
+					<div>
+						<h4 className="mb-4 text-xl">Additional Details</h4>
+						<Form {...interviewForm}>
+							<form className="space-y-4">
+								<FormField
+									control={interviewForm.control}
+									name="candidateEmailTemplate"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Candidate Email Template</FormLabel>
+											<Select
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+											>
+												<FormControl>
+													<SelectTrigger>
+														<SelectValue placeholder="Select template" />
+													</SelectTrigger>
+												</FormControl>
+												<SelectContent>
+													{interviewTypes?.map(type => (
+														<SelectItem value={type.value} key={type.value}>
+															{type.name}
+														</SelectItem>
+													))}
+												</SelectContent>
+											</Select>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={interviewForm.control}
+									name="candidateEmailTemplate"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Interviewer Email Template</FormLabel>
+											<Select
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+											>
+												<FormControl>
+													<SelectTrigger>
+														<SelectValue placeholder="Select template" />
+													</SelectTrigger>
+												</FormControl>
+												<SelectContent>
+													{interviewTypes?.map(type => (
+														<SelectItem value={type.value} key={type.value}>
+															{type.name}
+														</SelectItem>
+													))}
+												</SelectContent>
+											</Select>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<div className="grid lg:grid-cols-2 gap-2">
+									<FormField
+										control={interviewForm.control}
+										name="feedbackDeadline"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Feedback Deadline &#40;Hours&#41;</FormLabel>
+												<FormControl>
+													<Input required {...field} />
+												</FormControl>
+												<FormDescription className="text-xs">
+													The number of hours after the interview is conducted
+													when the feedback deadline will be triggered.
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={interviewForm.control}
+										name="candidateEmailTemplate"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Feedback Frequency</FormLabel>
+												<Select
+													onValueChange={field.onChange}
+													defaultValue={field.value}
+												>
+													<FormControl>
+														<SelectTrigger>
+															<SelectValue placeholder="Select frequency of notifications" />
+														</SelectTrigger>
+													</FormControl>
+													<SelectContent>
+														{frequency?.map(frequency => (
+															<SelectItem value={frequency} key={frequency}>
+																{frequency}
+															</SelectItem>
+														))}
+													</SelectContent>
+												</Select>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
+								<FormField
+									control={interviewForm.control}
+									name="escalationEmail"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Escalation Email</FormLabel>
+											<FormControl>
+												<Input required {...field} />
+											</FormControl>
+											<FormDescription className="text-xs">
+												Leave empty if you don&apos;t want to enable escalation
+											</FormDescription>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={interviewForm.control}
+									name="feedbackDeadline"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Escalation Deadline &#40;Hours&#41;</FormLabel>
+											<FormControl>
+												<Input required {...field} />
+											</FormControl>
+											<FormDescription className="text-xs">
+												The number of hours after the interview is conducted
+												when the escalation will be triggered.
+											</FormDescription>
 											<FormMessage />
 										</FormItem>
 									)}
