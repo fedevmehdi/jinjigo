@@ -21,3 +21,19 @@ export type User = {
 	_id: string
 	username: string
 }
+
+export type AvailableTimeRange = {
+	groupId: string
+	start: string
+	end: string
+	display: string
+}
+
+export type CalendarEvent = {
+	id: string | number
+	title: string
+	start: string
+	end: string
+	constraint?: string
+	editable?: boolean
+}

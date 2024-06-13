@@ -85,6 +85,9 @@ export const createInterviewInterviewSchema = z.object({
 	feedbackDeadline: z.number(),
 	escalationEmail: z.string().email(),
 	escalationDeadline: z.number(),
+	feedbackFrequency: z.string(),
+	interviewSchedulingMethod: z.string(),
+	interviewTime: z.date(),
 })
 
 export const createEmailTemplateSchema = z.object({

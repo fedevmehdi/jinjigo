@@ -11,8 +11,8 @@ export default function Sidebar() {
 	const [collapse, setCollapse] = useState(false)
 	return (
 		<nav
-			className={`group relative hidden h-screen lg:flex flex-col justify-between ${
-				collapse ? "w-[60px]" : "w-80"
+			className={`group relative hidden h-screen lg:flex flex-col justify-between flex-shrink-0 ${
+				collapse ? "w-[60px]" : "w-[280px]"
 			} bg-primary/5 dark:bg-inherit border z-[20] transition-all duration-300`}
 		>
 			<div className="hidden group-hover:flex absolute top-[10%] -right-[65px] w-20 h-20 justify-center items-center">

@@ -1,27 +1,31 @@
 export const events = [
 	{
-		title: "UI/UX Interview",
-		start: "2024-04-04T10:00:00",
-		end: "2024-04-04T11:00:00",
+		id: "1",
+		title: "Availibility",
+		start: "2024-06-10T10:00:00",
+		end: "2024-06-10T11:00:00",
 		constraint: "availableForMeeting",
+		editable: true,
+	},
+]
+
+export const availableTimeRanges = [
+	{
+		groupId: "availableForMeeting",
+		start: "2024-06-13T10:00:00",
+		end: "2024-06-13T10:00:00",
+		display: "background",
 	},
 	{
 		groupId: "availableForMeeting",
-		start: "2024-04-02T10:00:00",
-		end: "2024-04-02T16:00:00",
+		start: "2024-06-10T10:00:00",
+		end: "2024-06-10T16:00:00",
 		display: "background",
 	},
 	{
 		groupId: "availableForMeeting",
-		start: "2024-04-04T10:00:00",
-		end: "2024-04-04T16:00:00",
+		start: "2024-06-12T12:00:00",
+		end: "2024-06-12T16:00:00",
 		display: "background",
-	},
-	{
-		start: "2024-04-02T12:00:00",
-		end: "2024-04-01T13:00:00",
-		overlap: false,
-		display: "background",
-		color: "#ff9f89",
 	},
 ]
