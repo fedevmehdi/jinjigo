@@ -5,26 +5,42 @@ import interactionPlugin from "@fullcalendar/interaction"
 import dayjs from "dayjs"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { format, isBefore, isAfter, addHours, parseISO } from "date-fns"
+import { format, isBefore, isAfter, addHours, parseISO, getDay } from "date-fns"
 import { toast } from "sonner"
-import { AvailableTimeRange, CalendarEvent } from "@/lib/types"
+import { Toggle } from "@/components/ui/toggle"
 
 interface Schedluing {
-	initialEvents: any[]
-	availableTimeRanges: AvailableTimeRange[]
+	availableTimeRanges: any[]
 	isFinalDateSelection?: boolean
+	isProposingNewDate?: boolean
+	setIsProposingNewDate?: (state: boolean) => void
 }
 export default function Schedluing({
 	isFinalDateSelection = false,
-	initialEvents,
 	availableTimeRanges,
+	isProposingNewDate = false,
+	setIsProposingNewDate,
 }: Schedluing) {
 	const calendarRef = useRef<FullCalendar>(null)
 	const [dateRange, setDateRange] = useState<string>(dayjs().format("MMMM"))
-	const [eventsList, setEventsList] = useState([
-		...initialEvents,
-		...availableTimeRanges,
-	])
+	const [eventsList, setEventsList] = useState(
+		isFinalDateSelection
+			? [
+					...availableTimeRanges,
+					{
+						id: "final",
+						title: "Final Interview Time",
+						start: availableTimeRanges[0].start,
+						end: "2024-06-10T11:00:00",
+						constraint: "availableForMeeting",
+						editable: false,
+						startEditable: true,
+					},
+			  ]
+			: isProposingNewDate
+			? []
+			: [...availableTimeRanges]
+	)
 	const [contextMenu, setContextMenu] = useState<{
 		visible: boolean
 		x: number
@@ -54,15 +70,16 @@ export default function Schedluing({
 	}
 
 	const handleDateClick = (arg: any) => {
-		// Check if the clicked date is within available time ranges
-		const isInAvailableRange = availableTimeRanges.some(range => {
-			const start = parseISO(range.start)
-			const end = parseISO(range.end)
-			const date = parseISO(arg.dateStr)
-			return !isBefore(date, start) && !isAfter(date, end)
-		})
+		// No need to add more events in case of final selection
+		if (isFinalDateSelection) return
 
-		if (isInAvailableRange) {
+		const clickedDate = parseISO(arg.dateStr)
+		if (isBefore(clickedDate, new Date())) {
+			toast.error("You can only create events in the future.")
+			return
+		}
+
+		if (isProposingNewDate) {
 			const newEvent = {
 				id: Date.now().toString(),
 				title: "Available",
@@ -71,12 +88,33 @@ export default function Schedluing({
 					addHours(parseISO(arg.dateStr), 1),
 					"yyyy-MM-dd'T'HH:mm:ss"
 				),
-				constraint: "availableForMeeting",
 				editable: true,
 			}
 			setEventsList([...eventsList, newEvent])
 		} else {
-			alert("You can only create events in the available time ranges.")
+			const isInAvailableRange = eventsList.some((range: any) => {
+				const start = parseISO(range.start)
+				const end = parseISO(range.end)
+				return !isBefore(clickedDate, start) && !isAfter(clickedDate, end)
+			})
+
+			// Check if the clicked date is within available time ranges
+			if (isInAvailableRange) {
+				const newEvent = {
+					id: Date.now().toString(),
+					title: "Available",
+					start: arg.dateStr,
+					end: format(
+						addHours(parseISO(arg.dateStr), 1),
+						"yyyy-MM-dd'T'HH:mm:ss"
+					),
+					constraint: "availableForMeeting",
+					editable: true,
+				}
+				setEventsList([...eventsList, newEvent])
+			} else {
+				toast.error("You can only create events in the available time ranges.")
+			}
 		}
 	}
 
@@ -198,15 +236,15 @@ export default function Schedluing({
 						<Button variant="outline" size="sm" onClick={() => move(0)}>
 							Today
 						</Button>
-						<Button
-							variant="outline"
-							size="sm"
-							onClick={() => {
-								/* handle propose new schedule */
-							}}
-						>
-							Propose a new date
-						</Button>
+						{setIsProposingNewDate && (
+							<Toggle
+								variant="outline"
+								pressed={isProposingNewDate}
+								onPressedChange={setIsProposingNewDate}
+							>
+								Propose a new date
+							</Toggle>
+						)}
 					</div>
 				</div>
 				<div className="overflow-auto">
@@ -223,6 +261,9 @@ export default function Schedluing({
 							slotMaxTime="18:00:00"
 							height={550}
 							hiddenDays={[0]}
+							validRange={{
+								start: new Date(),
+							}}
 							dayHeaderContent={(eventInfo: any) => (
 								<div className="my-2 flex flex-col justify-center items-center shrink-0">
 									<h4 className="font-medium">
@@ -251,6 +292,7 @@ export default function Schedluing({
 									return "!border-primary"
 								}
 							}}
+							firstDay={getDay(new Date())}
 							dateClick={handleDateClick}
 							eventDidMount={handleEventDidMount}
 							eventDrop={handleEventDrop}

@@ -12,20 +12,20 @@ export const events = [
 export const availableTimeRanges = [
 	{
 		groupId: "availableForMeeting",
-		start: "2024-06-13T10:00:00",
-		end: "2024-06-13T10:00:00",
+		start: "2024-06-14T10:00:00",
+		end: "2024-06-14T10:00:00",
 		display: "background",
 	},
 	{
 		groupId: "availableForMeeting",
-		start: "2024-06-10T10:00:00",
-		end: "2024-06-10T16:00:00",
+		start: "2024-06-15T10:00:00",
+		end: "2024-06-15T16:00:00",
 		display: "background",
 	},
 	{
 		groupId: "availableForMeeting",
-		start: "2024-06-12T12:00:00",
-		end: "2024-06-12T16:00:00",
+		start: "2024-06-18T12:00:00",
+		end: "2024-06-18T16:00:00",
 		display: "background",
 	},
 ]
