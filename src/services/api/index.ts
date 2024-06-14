@@ -13,3 +13,6 @@ export const signup = (formData: SignupUser) =>
 	API.post("/auth/signup", formData)
 export const loginByGoogle = (token: string) =>
 	API.post("/auth/validate-google-token", { token })
+export const fetchInterviews = (userId: string) => {
+	return API.post("/interviews/user-interviews", { userId })
+}

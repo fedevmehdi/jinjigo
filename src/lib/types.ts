@@ -20,6 +20,7 @@ export type User = {
 	email: string
 	_id: string
 	username: string
+	role: string
 }
 
 export type AvailableTimeRange = {

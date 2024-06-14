@@ -4,32 +4,33 @@ import { Interview, columns } from "./components/columns"
 import { InterviewDataTable } from "./components/interview-table"
 import { useNavigate } from "react-router-dom"
 import { PlusSquare } from "lucide-react"
+import { User } from "@/lib/types"
+import { useSelector } from "react-redux"
+import { RootState } from "@/services/state/store"
+import { useEffect, useState } from "react"
+import { fetchInterviews } from "@/services/api"
 
 export default function InterviewPage() {
+	const user: User = useSelector((state: RootState) => state.auth.userInfo!)
 	const navigate = useNavigate()
-	const data: Interview[] = [
-		{
-			id: "728ed52f",
-			position: "UI/UX Designer",
-			status: "scheduled",
-			date: "5:30pm | Jun 5",
-			interviewerName: "John Smith (Apple .inc)",
-		},
-		{
-			id: "728ed62f",
-			position: "Product Manager",
-			status: "Scheduling",
-			date: "5:30pm | Jun 6",
-			interviewerName: "Bano Atsuro (Sales .inc)",
-		},
-		{
-			id: "728ed72f",
-			position: "Project Manager",
-			status: "in-evaluation",
-			date: "5:30pm | Jun 7",
-			interviewerName: "James Doe (Zendesk .inc)",
-		},
-	]
+	const [data, setData] = useState<Interview[]>([])
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		const fetchInterviewsData = async () => {
+			try {
+				const response = await fetchInterviews(user._id)
+				setData(response.data)
+			} catch (error) {
+				console.error("Error fetching interviews", error)
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		fetchInterviewsData()
+	}, [user._id])
+
 	return (
 		<>
 			<Header title="Interview List" />
@@ -46,8 +47,11 @@ export default function InterviewPage() {
 						</div>
 					</Button>
 					<div className="card-primary">
-						{/* <h3 className="mb-4 text-xl font-medium">Qualified For Interview</h3> */}
-						<InterviewDataTable columns={columns} data={data} />
+						{loading ? (
+							<p>Loading...</p>
+						) : (
+							<InterviewDataTable columns={columns} data={data} />
+						)}
 					</div>
 				</div>
 			</div>

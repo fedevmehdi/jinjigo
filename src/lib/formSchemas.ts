@@ -74,6 +74,9 @@ export const createInterviewCandidateSchema = z.object({
 	candidateInformationUrl: z.string().url(),
 })
 
+const interviewrsSchema = z.object({
+	email: z.string().email(),
+})
 export const createInterviewInterviewSchema = z.object({
 	interviewType: z.string(),
 	position: z.string(),
@@ -88,6 +91,7 @@ export const createInterviewInterviewSchema = z.object({
 	feedbackFrequency: z.string(),
 	interviewSchedulingMethod: z.string(),
 	interviewTime: z.date(),
+	interviewers: z.array(interviewrsSchema),
 })
 
 export const createEmailTemplateSchema = z.object({

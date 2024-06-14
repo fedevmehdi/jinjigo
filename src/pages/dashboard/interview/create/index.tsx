@@ -24,12 +24,12 @@ import {
 	createInterviewInterviewSchema,
 } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
 import Header from "../../components/header"
 import ScheduleOrderDnd from "../components/schedule-dnd"
 import { DateRangePicker } from "@/components/ui/date-range-picker"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { TimePicker } from "@/components/ui/time-picker"
 import {
 	Popover,
@@ -37,7 +37,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, Plus, Trash2 } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
@@ -66,11 +66,28 @@ export default function CreateInterviewPage() {
 				interviewType: "",
 				position: "",
 				interviewDuration: 0,
-				interviewer1: "",
-				interviewer2: "",
+				interviewers: [{ email: "" }],
 			},
 		}
 	)
+	const { fields, append, remove } = useFieldArray({
+		control: interviewForm.control,
+		name: "interviewers",
+	})
+
+	const [items, setItems] = useState<string[]>(["candidate"])
+
+	useEffect(() => {
+		setItems([
+			"candidate",
+			...fields.map((name, index) => index + 1 + " Interviewer"),
+		])
+	}, [fields])
+
+	const onSubmit = (data: any) => {
+		console.log("Submitted data", data)
+		// Handle form submission logic here
+	}
 
 	return (
 		<>
@@ -109,19 +126,7 @@ export default function CreateInterviewPage() {
 										</FormItem>
 									)}
 								/>
-								<FormField
-									control={candidateForm.control}
-									name="position"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Position</FormLabel>
-											<FormControl>
-												<Input required {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+
 								<FormField
 									control={candidateForm.control}
 									name="currentEmployer"
@@ -130,6 +135,19 @@ export default function CreateInterviewPage() {
 											<FormLabel>Current Employer</FormLabel>
 											<FormControl>
 												<Input {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={candidateForm.control}
+									name="position"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Position</FormLabel>
+											<FormControl>
+												<Input required {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -211,31 +229,40 @@ export default function CreateInterviewPage() {
 										</FormItem>
 									)}
 								/>
-								<FormField
-									control={interviewForm.control}
-									name="interviewer1"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Interviewers' Email</FormLabel>
-											<FormControl>
-												<Input required {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={interviewForm.control}
-									name="interviewer2"
-									render={({ field }) => (
-										<FormItem>
-											<FormControl>
-												<Input required {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+								{fields.map((field, index) => (
+									<FormField
+										key={field.id}
+										control={interviewForm.control}
+										name={`interviewers.${index}.email`}
+										render={({ field }) => (
+											<FormItem className="relative">
+												<FormLabel>{index + 1} Interviewer's Email</FormLabel>
+												<FormControl>
+													<Input required {...field} />
+												</FormControl>
+												<FormMessage />
+												<div className="absolute right-3 inset-y-0 grid place-content-center pt-6">
+													<Button
+														variant="ghost"
+														size="icon"
+														className="w-6 h-6"
+														onClick={() => remove(index)}
+													>
+														<Trash2 className="w-4 h-4" />
+													</Button>
+												</div>
+											</FormItem>
+										)}
+									/>
+								))}
+								<Button
+									variant="ghost"
+									size="sm"
+									onClick={() => append({ email: "" })}
+								>
+									<Plus className="h-4 w-4 me-2" />
+									Add Interviewer
+								</Button>
 							</form>
 						</Form>
 					</div>
@@ -485,7 +512,7 @@ export default function CreateInterviewPage() {
 						{interviewSchedulingMethod === "flexible" && (
 							<div className="card-primary">
 								<h3 className="mb-6 text-lg">Order of Schedule</h3>
-								<ScheduleOrderDnd />
+								<ScheduleOrderDnd items={items} setItems={setItems} />
 							</div>
 						)}
 					</div>
