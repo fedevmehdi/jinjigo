@@ -66,32 +66,39 @@ export const createInterviewTemplateSchema = z.object({
 	escalationDeadline: z.number(),
 })
 
-export const createInterviewCandidateSchema = z.object({
-	email: z.string().email(),
-	name: z.string(),
-	position: z.string(),
-	currentEmployer: z.string(),
-	candidateInformationUrl: z.string().url(),
-})
+export const createInterviewCandidateSchema = z.object({})
 
-const interviewrsSchema = z.object({
-	email: z.string().email(),
-})
-export const createInterviewInterviewSchema = z.object({
+export const createInterviewSchema = z.object({
+	candidateEmail: z.string().email(),
+	candidateName: z.string(),
+	candidateCurrentEmployer: z.string(),
+	candidateInformationUrl: z.string().url().optional(),
+	candidatePosition: z.string(),
 	interviewType: z.string(),
-	position: z.string(),
-	interviewDuration: z.number(),
-	interviewer1: z.string().email(),
-	interviewer2: z.string().email(),
+	interviewDuration: z.coerce.number(),
+	interviewers: z.array(
+		z.object({
+			email: z.string().email(),
+		})
+	),
 	candidateEmailTemplate: z.string(),
 	interviewerEmailTemplate: z.string(),
-	feedbackDeadline: z.number(),
-	escalationEmail: z.string().email(),
-	escalationDeadline: z.number(),
-	feedbackFrequency: z.string(),
-	interviewSchedulingMethod: z.string(),
-	interviewTime: z.date(),
-	interviewers: z.array(interviewrsSchema),
+	feedbackDeadline: z.coerce.number(),
+	escalationEmail: z.string().email().optional(),
+	escalationDeadline: z.coerce.number().optional(),
+	feedbackNotificationFrequency: z.string().optional(),
+	interviewSchedulingMethod: z.enum(["flexible", "fixed"]),
+	interviewStartTime: z.date().optional(),
+	interviewPosition: z.string(),
+	initialDateRange: z
+		.object({
+			from: z.date(),
+			to: z.date(),
+		})
+		.optional(),
+	resume: z.array(z.string()).optional(),
+	orderOfSchedule: z.array(z.string()).optional(),
+	notes: z.string().optional(),
 })
 
 export const createEmailTemplateSchema = z.object({

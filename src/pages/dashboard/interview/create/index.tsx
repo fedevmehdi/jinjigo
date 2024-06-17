@@ -19,10 +19,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { frequency, interviewTypes } from "@/database"
-import {
-	createInterviewCandidateSchema,
-	createInterviewInterviewSchema,
-} from "@/lib/formSchemas"
+import { createInterviewSchema } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -41,51 +38,68 @@ import { CalendarIcon, Plus, Trash2 } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
+import Loader from "@/components/modals/loader"
 
 export default function CreateInterviewPage() {
 	const [interviewSchedulingMethod, setInterviewSchedulingMethod] =
 		useState<string>("flexible")
+	const [isLoading, setIsLoading] = useState(true)
 
-	const candidateForm = useForm<z.infer<typeof createInterviewCandidateSchema>>(
-		{
-			resolver: zodResolver(createInterviewCandidateSchema),
-			defaultValues: {
-				email: "",
-				name: "",
-				position: "",
-				currentEmployer: "",
-				candidateInformationUrl: "",
-			},
-		}
-	)
-
-	const interviewForm = useForm<z.infer<typeof createInterviewInterviewSchema>>(
-		{
-			resolver: zodResolver(createInterviewInterviewSchema),
-			defaultValues: {
-				interviewType: "",
-				position: "",
-				interviewDuration: 0,
-				interviewers: [{ email: "" }],
-			},
-		}
-	)
+	const scheduleInterview = useForm<z.infer<typeof createInterviewSchema>>({
+		resolver: zodResolver(createInterviewSchema),
+		defaultValues: {
+			interviewType: "",
+			candidatePosition: "",
+			interviewDuration: 0,
+			interviewers: [{ email: "" }],
+			interviewSchedulingMethod: "flexible",
+			feedbackNotificationFrequency: "daily",
+			orderOfSchedule: ["candidate"],
+			resume: [],
+		},
+	})
 	const { fields, append, remove } = useFieldArray({
-		control: interviewForm.control,
+		control: scheduleInterview.control,
 		name: "interviewers",
 	})
 
-	const [items, setItems] = useState<string[]>(["candidate"])
-
 	useEffect(() => {
-		setItems([
+		const newItems = [
 			"candidate",
-			...fields.map((name, index) => index + 1 + " Interviewer"),
-		])
-	}, [fields])
+			...fields.map((_name, index) => `Interviewer ${index + 1}`),
+		]
+		scheduleInterview.setValue("orderOfSchedule", newItems)
+	}, [fields, scheduleInterview])
 
-	const onSubmit = (data: any) => {
+	const onSubmit = (data: z.infer<typeof createInterviewSchema>) => {
 		console.log("Submitted data", data)
+		//  {
+		// 		"candidateCurrentEmployer": "Google",
+		// 		"candidateEmail": "edokuraime@gmail.com",
+		// 		"candidateEmailTemplate": "informal",
+		// 		"candidateInformationUrl": null,
+		// 		"candidateName": "Mehdi",
+		// 		"candidatePosition": "Intern",
+		// 		"escalationDeadline": 2,
+		// 		"escalationEmail": "edoitachime@gmail.com",
+		// 		"feedbackDeadline": 5,
+		// 		"feedbackNotificationFrequency": "daily",
+		// 		"initialDateRange": {
+		// 			"from": "Tue Jun 18 2024 00:00:00 GMT+0500 (Pakistan Standard Time)",
+		// 			"to": "Sat Jun 22 2024 00:00:00 GMT+0500 (Pakistan Standard Time)"
+		// 		},
+		// 		"interviewDuration": 19,
+		// 		"interviewPosition": "Frontend Developer",
+		// 		"interviewSchedulingMethod": "flexible",
+		// 		"interviewType": "panel",
+		//! 	"interviewStartTime": "Tue Jun 18 2024 00:00:00 GMT+0500 (Pakistan Standard Time)",
+		// 		"interviewerEmailTemplate": "case",
+		// 		"interviewers": [{email: "mail"}],
+		// 		"notes": "Testing notes",
+		// 		"orderOfSchedule": ["candidate", "Interviewer 1"],
+		// 		"resume": ["url"]
+		// 	}
+
 		// Handle form submission logic here
 	}
 
@@ -98,11 +112,14 @@ export default function CreateInterviewPage() {
 					<hr className="my-6" />
 					<div>
 						<h4 className="mb-4 text-xl">Candidate Information</h4>
-						<Form {...candidateForm}>
-							<form className="space-y-4">
+						<Form {...scheduleInterview}>
+							<form
+								className="space-y-4"
+								onSubmit={scheduleInterview.handleSubmit(onSubmit)}
+							>
 								<FormField
-									control={candidateForm.control}
-									name="name"
+									control={scheduleInterview.control}
+									name="candidateName"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Name</FormLabel>
@@ -114,8 +131,8 @@ export default function CreateInterviewPage() {
 									)}
 								/>
 								<FormField
-									control={candidateForm.control}
-									name="email"
+									control={scheduleInterview.control}
+									name="candidateEmail"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Email Address</FormLabel>
@@ -128,8 +145,8 @@ export default function CreateInterviewPage() {
 								/>
 
 								<FormField
-									control={candidateForm.control}
-									name="currentEmployer"
+									control={scheduleInterview.control}
+									name="candidateCurrentEmployer"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Current Employer</FormLabel>
@@ -141,8 +158,8 @@ export default function CreateInterviewPage() {
 									)}
 								/>
 								<FormField
-									control={candidateForm.control}
-									name="position"
+									control={scheduleInterview.control}
+									name="candidatePosition"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Position</FormLabel>
@@ -154,7 +171,7 @@ export default function CreateInterviewPage() {
 									)}
 								/>
 								<FormField
-									control={candidateForm.control}
+									control={scheduleInterview.control}
 									name="candidateInformationUrl"
 									render={({ field }) => (
 										<FormItem>
@@ -166,16 +183,22 @@ export default function CreateInterviewPage() {
 										</FormItem>
 									)}
 								/>
-							</form>
-						</Form>
-					</div>
-					<hr className="my-14" />
-					<div>
-						<h4 className="mb-4 text-xl">Interview Information</h4>
-						<Form {...interviewForm}>
-							<form className="space-y-4">
 								<FormField
-									control={interviewForm.control}
+									control={scheduleInterview.control}
+									name="resume"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Upload Resume</FormLabel>
+											<DragDropFiles {...field} value={field.value || []} />
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<hr className="my-14" />
+								<h4 className="mb-4 text-xl">Interview Information</h4>
+								<FormField
+									control={scheduleInterview.control}
 									name="interviewType"
 									render={({ field }) => (
 										<FormItem>
@@ -202,8 +225,8 @@ export default function CreateInterviewPage() {
 									)}
 								/>
 								<FormField
-									control={interviewForm.control}
-									name="position"
+									control={scheduleInterview.control}
+									name="interviewPosition"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Position</FormLabel>
@@ -215,7 +238,7 @@ export default function CreateInterviewPage() {
 									)}
 								/>
 								<FormField
-									control={interviewForm.control}
+									control={scheduleInterview.control}
 									name="interviewDuration"
 									render={({ field }) => (
 										<FormItem>
@@ -223,7 +246,7 @@ export default function CreateInterviewPage() {
 												Interview Duration &#40; Minutes &#41;
 											</FormLabel>
 											<FormControl>
-												<Input required {...field} />
+												<Input type="number" required {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -232,7 +255,7 @@ export default function CreateInterviewPage() {
 								{fields.map((field, index) => (
 									<FormField
 										key={field.id}
-										control={interviewForm.control}
+										control={scheduleInterview.control}
 										name={`interviewers.${index}.email`}
 										render={({ field }) => (
 											<FormItem className="relative">
@@ -263,33 +286,27 @@ export default function CreateInterviewPage() {
 									<Plus className="h-4 w-4 me-2" />
 									Add Interviewer
 								</Button>
-							</form>
-						</Form>
-					</div>
-					<hr className="my-14" />
-					<div>
-						<h4 className="mb-4 text-xl">Additional Details</h4>
-						<Form {...interviewForm}>
-							<form className="space-y-4">
+								<hr className="my-14" />
+								<h4 className="mb-4 text-xl">Additional Details</h4>
 								<FormField
-									control={interviewForm.control}
+									control={scheduleInterview.control}
 									name="interviewSchedulingMethod"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Interview Scheduling Method</FormLabel>
+											<FormLabel>Candidate Email Template</FormLabel>
 											<Select
 												onValueChange={value => {
 													field.onChange(value)
 													setInterviewSchedulingMethod(value)
 												}}
-												defaultValue="flexible"
+												defaultValue={field.value}
 											>
 												<FormControl>
 													<SelectTrigger>
-														<SelectValue placeholder="Select method" />
+														<SelectValue placeholder="Select template" />
 													</SelectTrigger>
 												</FormControl>
-												<SelectContent defaultValue="flexible">
+												<SelectContent>
 													<SelectItem value="flexible">Flexible</SelectItem>
 													<SelectItem value="fixed">Fixed</SelectItem>
 												</SelectContent>
@@ -298,14 +315,18 @@ export default function CreateInterviewPage() {
 										</FormItem>
 									)}
 								/>
+
 								{interviewSchedulingMethod === "flexible" ? (
 									<FormField
-										control={interviewForm.control}
-										name="candidateEmailTemplate"
-										render={() => (
+										control={scheduleInterview.control}
+										name="initialDateRange"
+										render={({ field }) => (
 											<FormItem>
 												<FormLabel>Interview Date Range</FormLabel>
-												<DateRangePicker />
+												<DateRangePicker
+													onChange={field.onChange}
+													value={field.value}
+												/>
 												<FormDescription className="text-xs">
 													The initial date range during which the interview can
 													be conducted.
@@ -316,12 +337,12 @@ export default function CreateInterviewPage() {
 									/>
 								) : (
 									<FormField
-										control={interviewForm.control}
-										name="interviewTime"
+										control={scheduleInterview.control}
+										name="interviewStartTime"
 										render={({ field }) => (
 											<FormItem className="flex flex-col">
 												<FormLabel className="text-left">
-													Interview Time
+													Interview Start Time
 												</FormLabel>
 												<Popover>
 													<FormControl>
@@ -335,7 +356,15 @@ export default function CreateInterviewPage() {
 															>
 																<CalendarIcon className="mr-2 h-4 w-4" />
 																{field.value ? (
-																	format(field.value, "PPP HH:mm:ss")
+																	// Ensure field.value is a valid date before formatting
+																	isNaN(new Date(field.value).getTime()) ? (
+																		<span>Pick a date</span>
+																	) : (
+																		format(
+																			new Date(field.value),
+																			"PPP HH:mm:ss"
+																		)
+																	)
 																) : (
 																	<span>Pick a date</span>
 																)}
@@ -345,24 +374,53 @@ export default function CreateInterviewPage() {
 													<PopoverContent className="w-auto p-0">
 														<Calendar
 															mode="single"
-															selected={field.value}
-															onSelect={field.onChange}
+															selected={
+																field.value ? new Date(field.value) : undefined
+															}
+															onSelect={date => {
+																field.onChange(date) // Change here
+															}}
 															initialFocus
 														/>
 														<div className="p-3 border-t border-border">
 															<TimePicker
-																setDate={field.onChange}
-																date={field.value}
+																setDate={date => {
+																	field.onChange(date)
+																}}
+																date={
+																	field.value
+																		? new Date(field.value)
+																		: undefined
+																}
 															/>
 														</div>
 													</PopoverContent>
 												</Popover>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								)}
+								{interviewSchedulingMethod === "flexible" && (
+									<FormField
+										control={scheduleInterview.control}
+										name="orderOfSchedule"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Order of Schedule</FormLabel>
+												<ScheduleOrderDnd
+													items={field.value ?? []}
+													setItems={newItems => {
+														field.onChange(newItems)
+													}}
+												/>
+												<FormMessage />
 											</FormItem>
 										)}
 									/>
 								)}
 								<FormField
-									control={interviewForm.control}
+									control={scheduleInterview.control}
 									name="candidateEmailTemplate"
 									render={({ field }) => (
 										<FormItem>
@@ -389,8 +447,8 @@ export default function CreateInterviewPage() {
 									)}
 								/>
 								<FormField
-									control={interviewForm.control}
-									name="candidateEmailTemplate"
+									control={scheduleInterview.control}
+									name="interviewerEmailTemplate"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Interviewer Email Template</FormLabel>
@@ -418,7 +476,7 @@ export default function CreateInterviewPage() {
 
 								<div className="grid lg:grid-cols-2 gap-2">
 									<FormField
-										control={interviewForm.control}
+										control={scheduleInterview.control}
 										name="feedbackDeadline"
 										render={({ field }) => (
 											<FormItem>
@@ -435,14 +493,14 @@ export default function CreateInterviewPage() {
 										)}
 									/>
 									<FormField
-										control={interviewForm.control}
-										name="feedbackFrequency"
+										control={scheduleInterview.control}
+										name="feedbackNotificationFrequency"
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>Feedback Frequency</FormLabel>
 												<Select
 													onValueChange={field.onChange}
-													defaultValue="daily"
+													defaultValue={field.value}
 												>
 													<FormControl>
 														<SelectTrigger>
@@ -450,8 +508,8 @@ export default function CreateInterviewPage() {
 														</SelectTrigger>
 													</FormControl>
 													<SelectContent defaultValue="daily">
-														{frequency?.map(frequency => (
-															<SelectItem value={frequency} key={frequency}>
+														{frequency?.map((frequency, index) => (
+															<SelectItem value={frequency} key={index}>
 																{frequency}
 															</SelectItem>
 														))}
@@ -463,7 +521,7 @@ export default function CreateInterviewPage() {
 									/>
 								</div>
 								<FormField
-									control={interviewForm.control}
+									control={scheduleInterview.control}
 									name="escalationEmail"
 									render={({ field }) => (
 										<FormItem>
@@ -479,7 +537,7 @@ export default function CreateInterviewPage() {
 									)}
 								/>
 								<FormField
-									control={interviewForm.control}
+									control={scheduleInterview.control}
 									name="escalationDeadline"
 									render={({ field }) => (
 										<FormItem>
@@ -495,35 +553,35 @@ export default function CreateInterviewPage() {
 										</FormItem>
 									)}
 								/>
+
+								<FormField
+									control={scheduleInterview.control}
+									name="notes"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Notes</FormLabel>
+											<FormControl>
+												<Textarea {...field} rows={5} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<div className="flex space-x-2 max-lg:mb-6">
+									<Button variant="secondary" className="w-full">
+										Cancel
+									</Button>
+									<Button className="w-full" type="submit">
+										Create Interview
+									</Button>
+								</div>
 							</form>
 						</Form>
 					</div>
 				</div>
-				<div className="flex flex-col justify-between gap-4">
-					<div className="space-y-4">
-						<div className="card-primary">
-							<h3 className="mb-6 text-lg">Upload Resume</h3>
-							<DragDropFiles />
-						</div>
-						<div className="card-primary">
-							<h3 className="mb-6 text-lg">Notes</h3>
-							<Textarea className="" rows={5} />
-						</div>
-						{interviewSchedulingMethod === "flexible" && (
-							<div className="card-primary">
-								<h3 className="mb-6 text-lg">Order of Schedule</h3>
-								<ScheduleOrderDnd items={items} setItems={setItems} />
-							</div>
-						)}
-					</div>
-					<div className="flex space-x-2 max-lg:mb-6">
-						<Button variant="secondary" className="w-full">
-							Cancel
-						</Button>
-						<Button className="w-full">Create Interview</Button>
-					</div>
-				</div>
 			</div>
+			<Loader loading={isLoading} />
 		</>
 	)
 }

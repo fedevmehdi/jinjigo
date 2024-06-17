@@ -1,33 +1,115 @@
-import { Loader2, Plus, Trash2, UploadCloud } from "lucide-react"
-import { useRef, MouseEvent, DragEvent, useState } from "react"
-import { Button } from "./button"
+import { useRef, MouseEvent, DragEvent, useState, useEffect } from "react"
+import { Link, Plus, Trash2, UploadCloud } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { uploadFile } from "@/lib/utils"
+import { toast } from "sonner"
 
-export default function DragDropFiles() {
+interface FileData {
+	name: string
+	url: string
+}
+
+interface DragDropFilesProps {
+	onChange: (
+		event:
+			| React.ChangeEvent<HTMLInputElement>
+			| { target: { name: string; value: string[] } }
+	) => void
+	onBlur: () => void
+	value: string[] | undefined
+	name: string
+}
+
+export default function DragDropFiles({
+	onChange,
+	onBlur,
+	value,
+	name,
+}: DragDropFilesProps) {
 	const inputRef = useRef<HTMLInputElement | null>(null)
-	const [files, setFiles] = useState<File[]>([])
-	const [loading, setLoading] = useState(false)
+	const [files, setFiles] = useState<FileData[]>(
+		value
+			? value.map(url => ({
+					name: decodeURIComponent(url.split("%2F")[1].split("?")[0]),
+					url,
+			  }))
+			: []
+	)
+
+	useEffect(() => {
+		setFiles(
+			value
+				? value.map(url => ({
+						name: decodeURIComponent(url.split("%2F")[1].split("?")[0]),
+						url,
+				  }))
+				: []
+		)
+	}, [value])
 
 	const handleClick = (event: MouseEvent<HTMLElement>) => {
 		event.stopPropagation()
-
-		if (!inputRef.current) {
-			console.log(inputRef.current)
-			return
+		if (inputRef.current) {
+			inputRef.current.click()
 		}
-		inputRef.current.click()
 	}
+
 	const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault()
 	}
-	const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+
+	const handleDrop = async (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault()
-		const files = event.dataTransfer.files
-		if (files.length > 0) {
-			setFiles(prevFiles => [...prevFiles, ...Array.from(files)])
+		const droppedFiles = event.dataTransfer.files
+		if (droppedFiles.length > 0) {
+			const newFiles = Array.from(droppedFiles)
+			const updatedFiles = [...files]
+
+			for (const file of newFiles) {
+				const url = await uploadFile(file)
+				if (url) {
+					updatedFiles.push({ name: file.name, url })
+				}
+			}
+
+			setFiles(updatedFiles)
+			onChange({ target: { name, value: updatedFiles.map(file => file.url) } })
 		}
 	}
+
+	const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files) {
+			const newFiles = Array.from(event.target.files)
+			const updatedFiles = [...files]
+
+			for (const file of newFiles) {
+				const url = await uploadFile(file)
+				if (url) {
+					updatedFiles.push({ name: file.name, url })
+				}
+			}
+
+			setFiles(updatedFiles)
+			onChange({ target: { name, value: updatedFiles.map(file => file.url) } })
+		}
+	}
+
 	const removeFile = (index: number) => {
-		setFiles(prevFiles => prevFiles.filter((_, i) => i !== index))
+		const updatedFiles = files.filter((_, i) => i !== index)
+		setFiles(updatedFiles)
+		onChange({ target: { name, value: updatedFiles.map(file => file.url) } })
+	}
+
+	const copyUrl = (index: number) => {
+		const url = files[index].url
+		navigator.clipboard
+			.writeText(url)
+			.then(() => {
+				toast.success("URL copied to clipboard!")
+			})
+			.catch(err => {
+				console.error("Failed to copy URL: ", err)
+			})
 	}
 
 	return (
@@ -39,18 +121,8 @@ export default function DragDropFiles() {
 				ref={inputRef}
 				multiple={true}
 				accept=".jpg, .jpeg, .png, .pdf, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-				onChange={event => {
-					if (event.target.files) {
-						setLoading(true)
-						setFiles(prevFiles => [
-							...prevFiles,
-							...Array.from(event.target.files as FileList),
-						])
-					}
-					setTimeout(() => {
-						setLoading(false)
-					}, 2000)
-				}}
+				onChange={handleChange}
+				onBlur={onBlur}
 			/>
 			{files.length === 0 ? (
 				<div
@@ -73,25 +145,38 @@ export default function DragDropFiles() {
 						{files.map((file, index) => (
 							<li
 								key={index}
-								className="flex items-center justify-between border rounded-lg py-3 px-4 bg-secondary"
+								className="flex items-center justify-between border rounded py-2 px-4 bg-secondary"
 							>
-								<h4>{file.name}</h4>
-								<Trash2
-									className="text-red-600 cursor-pointer"
-									onClick={() => removeFile(index)}
-								/>
+								<h4 className="font-normal text-sm">{file.name}</h4>
+								<div className="flex items-center gap-2">
+									<Button
+										variant="ghost"
+										size="icon"
+										className="w-6 h-6"
+										onClick={() => copyUrl(index)}
+									>
+										<Link className="w-4 h-4" />
+									</Button>
+									<Button
+										variant="ghost"
+										size="icon"
+										className="w-6 h-6"
+										onClick={() => removeFile(index)}
+									>
+										<Trash2 className="text-red-600 cursor-pointer w-4 h-4" />
+									</Button>
+								</div>
 							</li>
 						))}
 					</ul>
-					<div className="flex items-center justify-end gap-2 mt-4">
-						{loading && <Loader2 className="animate-spin" />}
+					<div className="flex items-center justify-end gap-2">
 						<Button
 							size="icon"
 							variant="ghost"
 							onClick={handleClick}
-							disabled={loading}
+							className="h-7 w-7"
 						>
-							<Plus />
+							<Plus className="w-5 h-5" />
 						</Button>
 					</div>
 				</>

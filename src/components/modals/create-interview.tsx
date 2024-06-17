@@ -95,7 +95,7 @@ function CreateNewInterview({ setSection }: InterviewSection) {
 	)
 }
 
-function CreateInterview() {
+function CreateInterview({ setOpen }: any) {
 	const navigate = useNavigate()
 	return (
 		<>
@@ -144,7 +144,9 @@ function CreateInterview() {
 				</Tabs>
 			</div>
 			<DialogFooter>
-				<Button variant="secondary">Cancel</Button>
+				<Button variant="secondary" onClick={() => setOpen(false)}>
+					Cancel
+				</Button>
 				<Button
 					className="flex items-center gap-1"
 					onClick={() => navigate("/new-interview")}
@@ -165,7 +167,7 @@ export default function CreateInterviewModal({
 	const renderSection = () => {
 		switch (section) {
 			case "create-interview":
-				return <CreateInterview />
+				return <CreateInterview setOpen={setOpen} />
 			case "create-new-interview":
 				return <CreateNewInterview setSection={setSection} />
 		}
