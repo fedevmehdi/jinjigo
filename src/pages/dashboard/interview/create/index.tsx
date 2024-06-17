@@ -43,7 +43,7 @@ import Loader from "@/components/modals/loader"
 export default function CreateInterviewPage() {
 	const [interviewSchedulingMethod, setInterviewSchedulingMethod] =
 		useState<string>("flexible")
-	const [isLoading, setIsLoading] = useState(true)
+	const [isLoading, setIsLoading] = useState(false)
 
 	const scheduleInterview = useForm<z.infer<typeof createInterviewSchema>>({
 		resolver: zodResolver(createInterviewSchema),
@@ -72,7 +72,9 @@ export default function CreateInterviewPage() {
 	}, [fields, scheduleInterview])
 
 	const onSubmit = (data: z.infer<typeof createInterviewSchema>) => {
+		setIsLoading(true)
 		console.log("Submitted data", data)
+		setIsLoading(false)
 		//  {
 		// 		"candidateCurrentEmployer": "Google",
 		// 		"candidateEmail": "edokuraime@gmail.com",
@@ -92,7 +94,7 @@ export default function CreateInterviewPage() {
 		// 		"interviewPosition": "Frontend Developer",
 		// 		"interviewSchedulingMethod": "flexible",
 		// 		"interviewType": "panel",
-		//! 	"interviewStartTime": "Tue Jun 18 2024 00:00:00 GMT+0500 (Pakistan Standard Time)",
+		//	 	"interviewStartTime": "Tue Jun 18 2024 00:00:00 GMT+0500 (Pakistan Standard Time)",
 		// 		"interviewerEmailTemplate": "case",
 		// 		"interviewers": [{email: "mail"}],
 		// 		"notes": "Testing notes",
