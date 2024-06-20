@@ -43,7 +43,6 @@ import { createInterview } from "@/services/api"
 import { CreateInterview } from "@/lib/types"
 
 export default function CreateInterviewPage() {
-	const token = JSON.parse(localStorage.getItem("token") ?? "")
 	const [interviewSchedulingMethod, setInterviewSchedulingMethod] =
 		useState<string>("flexible")
 	const [loading, setLoading] = useState(false)
