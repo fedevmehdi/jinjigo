@@ -14,21 +14,43 @@ export type Interview = {
 
 export const columns: ColumnDef<Interview>[] = [
 	{
-		accessorKey: "interviewerName",
+		accessorKey: "candidateName",
 		header: ({ column }) => {
 			return (
 				<Button
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Interviewer Name
+					Candidate Name
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			)
 		},
+		cell: ({ row }) => {
+			let content = String(row.getValue("candidateName"))
+			return <div className="capitalize">{content}</div>
+		},
 	},
 	{
-		accessorKey: "position",
+		accessorKey: "interviewType",
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+				>
+					Interviewer Type
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			)
+		},
+		cell: ({ row }) => {
+			let content = String(row.getValue("interviewType"))
+			return <div className="capitalize">{content}</div>
+		},
+	},
+	{
+		accessorKey: "interviewPosition",
 		header: ({ column }) => {
 			return (
 				<Button
@@ -40,19 +62,27 @@ export const columns: ColumnDef<Interview>[] = [
 				</Button>
 			)
 		},
+		cell: ({ row }) => {
+			let content = String(row.getValue("interviewPosition"))
+			return <div className="capitalize">{content}</div>
+		},
 	},
 	{
-		accessorKey: "date",
+		accessorKey: "interviewSchedulingMethod",
 		header: ({ column }) => {
 			return (
 				<Button
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
 				>
-					Date/Time
+					Scheduling Method
 					<ArrowUpDown className="ml-2 h-4 w-4" />
 				</Button>
 			)
+		},
+		cell: ({ row }) => {
+			let content = String(row.getValue("interviewSchedulingMethod"))
+			return <div className="capitalize">{content}</div>
 		},
 	},
 	{

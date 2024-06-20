@@ -8,18 +8,21 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { format, isBefore, isAfter, addHours, parseISO, getDay } from "date-fns"
 import { toast } from "sonner"
 import { Toggle } from "@/components/ui/toggle"
+import { TimeRanges } from "@/lib/types"
 
 interface Schedluing {
 	availableTimeRanges: any[]
 	isFinalDateSelection?: boolean
 	isProposingNewDate?: boolean
 	setIsProposingNewDate?: (state: boolean) => void
+	setSelectedTimeRanges: (timeRanges: TimeRanges) => void
 }
 export default function Schedluing({
 	isFinalDateSelection = false,
 	availableTimeRanges,
 	isProposingNewDate = false,
 	setIsProposingNewDate,
+	setSelectedTimeRanges,
 }: Schedluing) {
 	const calendarRef = useRef<FullCalendar>(null)
 	const [dateRange, setDateRange] = useState<string>(dayjs().format("MMMM"))
@@ -41,6 +44,7 @@ export default function Schedluing({
 			? []
 			: [...availableTimeRanges]
 	)
+
 	const [contextMenu, setContextMenu] = useState<{
 		visible: boolean
 		x: number
@@ -208,6 +212,16 @@ export default function Schedluing({
 		setContextMenu({ visible: false, x: 0, y: 0, eventId: null })
 		bodyScrollControls.enable()
 	}
+
+	useEffect(() => {
+		const selectedTimeRanges = eventsList
+			.filter(event => event.title === "Available")
+			.map(event => ({
+				from: event.start,
+				to: event.end,
+			}))
+		setSelectedTimeRanges(selectedTimeRanges)
+	}, [eventsList])
 
 	return (
 		<>

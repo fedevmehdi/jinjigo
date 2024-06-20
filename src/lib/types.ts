@@ -1,4 +1,6 @@
 import { Icons } from "@/components/icons"
+import { createInterviewSchema } from "./formSchemas"
+import { z } from "zod"
 
 export interface NavItem {
 	title: string
@@ -8,6 +10,7 @@ export interface NavItem {
 	icon?: keyof typeof Icons
 	label?: string
 	description?: string
+	role: "HR" | "CANDIDATE" | "INTERVIEWER" | "EVERYONE"
 }
 
 export interface InterviewType {
@@ -16,7 +19,7 @@ export interface InterviewType {
 }
 
 export type User = {
-	token: string
+	accessToken: string
 	email: string
 	_id: string
 	username: string
@@ -37,4 +40,11 @@ export type CalendarEvent = {
 	end: string
 	constraint?: string
 	editable?: boolean
+}
+
+export type TimeRanges = { to: Date; from: Date }[] | null
+
+type CreateInterviewSchema = z.infer<typeof createInterviewSchema>
+export type CreateInterview = Omit<CreateInterviewSchema, "interviewers"> & {
+	interviewers: string[]
 }

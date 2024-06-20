@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom"
-import { NavItem } from "@/lib/types"
+import { NavItem, User } from "@/lib/types"
 import { Dispatch, SetStateAction } from "react"
 import { Button } from "../ui/button"
 import { Icons } from "../icons"
+import { RootState } from "@/services/state/store"
+import { useSelector } from "react-redux"
 
 interface DashboardNavProps {
 	items: NavItem[]
@@ -11,15 +13,22 @@ interface DashboardNavProps {
 }
 
 export function DashboardNav({ items, setOpen, collapse }: DashboardNavProps) {
+	const user: User = useSelector((state: RootState) => state.auth.userInfo!)
 	let location = useLocation()
 
+	// Filter items based on user roles
+	const filteredItems = items.filter(item => {
+		if (item.role === "EVERYONE") return true
+		item.role === user.role
+	})
+	console.log(user.role)
 	if (!items?.length) {
 		return null
 	}
 
 	return (
 		<nav className="grid items-start gap-1">
-			{items.map((item, index) => {
+			{filteredItems.map((item, index) => {
 				const Icon = Icons[item.icon || "arrowRight"]
 				return (
 					item.href && (

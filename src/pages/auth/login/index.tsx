@@ -13,7 +13,7 @@ import LoginForm from "../components/loginForm"
 
 export default function LoginPage() {
 	const dispatch = useDispatch<AppDispatch>()
-	const { userInfo, loading } = useSelector((state: RootState) => state.auth)
+	const { loading } = useSelector((state: RootState) => state.auth)
 	const navigate = useNavigate()
 	const [searchParams] = useSearchParams()
 
@@ -34,25 +34,21 @@ export default function LoginPage() {
 	}
 
 	const handleGoogleLogin = () => {
-		window.location.href = process.env.VITE_API_URL + "/auth/google"
+		window.location.href = import.meta.env.VITE_API_URL + "/auth/google"
 	}
 
-	useEffect(() => {
-		if (userInfo) {
-			window.location.href = "/"
-		}
-	}, [userInfo])
-
+	// useEffect(() => {
+	// if (userInfo) {
+	// 	window.location.href = "/"
+	// }
+	// }, [userInfo])
 	useEffect(() => {
 		const token = searchParams.get("token")
 		if (token) {
 			dispatch(googleLogin(token))
 				.then(response => {
 					if (response.payload) {
-						localStorage.setItem(
-							"token",
-							JSON.stringify(response.payload.accessToken)
-						)
+						localStorage.setItem("token", JSON.stringify(token))
 					}
 				})
 				.then(() => {

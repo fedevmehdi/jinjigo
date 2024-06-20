@@ -30,36 +30,42 @@ export const navItems: NavItem[] = [
 		href: "/",
 		icon: "home",
 		label: "home",
+		role: "EVERYONE",
 	},
 	{
 		title: "Interview",
 		href: "/interviews",
 		icon: "presentation",
 		label: "presentation",
+		role: "EVERYONE",
 	},
 	{
 		title: "Interview Template",
 		href: "/interview-templates",
 		icon: "bookDashed",
 		label: "bookDashed",
+		role: "HR",
 	},
 	{
 		title: "Email Template",
 		href: "/email-templates",
 		icon: "inbox",
 		label: "inbox",
+		role: "HR",
 	},
 	{
 		title: "Feedbacks",
 		href: "/feedback",
 		icon: "notebookPen",
 		label: "notebook pen",
+		role: "INTERVIEWER",
 	},
 	{
 		title: "Messages",
 		href: "/messages",
 		icon: "messageCircleMore",
 		label: "message circle more",
+		role: "EVERYONE",
 	},
 ]
 

@@ -39,11 +39,14 @@ import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import Loader from "@/components/modals/loader"
+import { createInterview } from "@/services/api"
+import { CreateInterview } from "@/lib/types"
 
 export default function CreateInterviewPage() {
+	const token = JSON.parse(localStorage.getItem("token") ?? "")
 	const [interviewSchedulingMethod, setInterviewSchedulingMethod] =
 		useState<string>("flexible")
-	const [isLoading, setIsLoading] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const scheduleInterview = useForm<z.infer<typeof createInterviewSchema>>({
 		resolver: zodResolver(createInterviewSchema),
@@ -56,6 +59,8 @@ export default function CreateInterviewPage() {
 			feedbackNotificationFrequency: "daily",
 			orderOfSchedule: ["candidate"],
 			resume: [],
+			candidateEmailTemplateId: "666f405be5ce464888262485",
+			interviewerEmailTemplateId: "666f405be5ce464888262485",
 		},
 	})
 	const { fields, append, remove } = useFieldArray({
@@ -71,38 +76,39 @@ export default function CreateInterviewPage() {
 		scheduleInterview.setValue("orderOfSchedule", newItems)
 	}, [fields, scheduleInterview])
 
-	const onSubmit = (data: z.infer<typeof createInterviewSchema>) => {
-		setIsLoading(true)
-		console.log("Submitted data", data)
-		setIsLoading(false)
-		//  {
-		// 		"candidateCurrentEmployer": "Google",
-		// 		"candidateEmail": "edokuraime@gmail.com",
-		// 		"candidateEmailTemplate": "informal",
-		// 		"candidateInformationUrl": null,
-		// 		"candidateName": "Mehdi",
-		// 		"candidatePosition": "Intern",
-		// 		"escalationDeadline": 2,
-		// 		"escalationEmail": "edoitachime@gmail.com",
-		// 		"feedbackDeadline": 5,
-		// 		"feedbackNotificationFrequency": "daily",
-		// 		"initialDateRange": {
-		// 			"from": "Tue Jun 18 2024 00:00:00 GMT+0500 (Pakistan Standard Time)",
-		// 			"to": "Sat Jun 22 2024 00:00:00 GMT+0500 (Pakistan Standard Time)"
-		// 		},
-		// 		"interviewDuration": 19,
-		// 		"interviewPosition": "Frontend Developer",
-		// 		"interviewSchedulingMethod": "flexible",
-		// 		"interviewType": "panel",
-		//	 	"interviewStartTime": "Tue Jun 18 2024 00:00:00 GMT+0500 (Pakistan Standard Time)",
-		// 		"interviewerEmailTemplate": "case",
-		// 		"interviewers": [{email: "mail"}],
-		// 		"notes": "Testing notes",
-		// 		"orderOfSchedule": ["candidate", "Interviewer 1"],
-		// 		"resume": ["url"]
-		// 	}
-
-		// Handle form submission logic here
+	const onSubmit = async (data: z.infer<typeof createInterviewSchema>) => {
+		setLoading(true)
+		try {
+			// Correct format of OrderOfSchedule
+			let updatedOrderOfSchedule
+			const { candidateEmail, interviewers, orderOfSchedule } = data
+			if (orderOfSchedule) {
+				updatedOrderOfSchedule = orderOfSchedule.map(name => {
+					if (name === "candidate") {
+						return candidateEmail
+					} else {
+						const interviewerIndex = parseInt(name.split(" ")[1]) - 1
+						return interviewers[interviewerIndex]?.email || name
+					}
+				})
+			}
+			// Correct format of interviewers
+			let updatedInterviewers = [""]
+			if (interviewers) {
+				updatedInterviewers = interviewers.map(interviewer => interviewer.email)
+			}
+			const updatedData: CreateInterview = {
+				...data,
+				orderOfSchedule: updatedOrderOfSchedule,
+				interviewers: updatedInterviewers,
+			}
+			const response = await createInterview(updatedData)
+			console.log(response)
+		} catch (error) {
+			console.error("Error fetching interviews", error)
+		} finally {
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -423,13 +429,14 @@ export default function CreateInterviewPage() {
 								)}
 								<FormField
 									control={scheduleInterview.control}
-									name="candidateEmailTemplate"
+									name="candidateEmailTemplateId"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Candidate Email Template</FormLabel>
 											<Select
 												onValueChange={field.onChange}
 												defaultValue={field.value}
+												disabled
 											>
 												<FormControl>
 													<SelectTrigger>
@@ -450,13 +457,14 @@ export default function CreateInterviewPage() {
 								/>
 								<FormField
 									control={scheduleInterview.control}
-									name="interviewerEmailTemplate"
+									name="interviewerEmailTemplateId"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Interviewer Email Template</FormLabel>
 											<Select
 												onValueChange={field.onChange}
 												defaultValue={field.value}
+												disabled
 											>
 												<FormControl>
 													<SelectTrigger>
@@ -583,7 +591,7 @@ export default function CreateInterviewPage() {
 					</div>
 				</div>
 			</div>
-			<Loader loading={isLoading} />
+			<Loader loading={loading} />
 		</>
 	)
 }

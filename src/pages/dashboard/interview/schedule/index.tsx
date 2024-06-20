@@ -5,10 +5,14 @@ import { availableTimeRanges } from "@/pages/dashboard/interview/components/reso
 import { useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
+import { TimeRanges } from "@/lib/types"
 
 export default function ScheduleInterviewPage() {
 	const [isFinalDateSelection, setIsFinalDateSelection] = useState(false)
 	const [isProposingNewDate, setIsProposingNewDate] = useState(false)
+	const [selectedTimeRanges, setSelectedTimeRanges] = useState<TimeRanges>(null)
+
+	console.log(selectedTimeRanges)
 	return (
 		<>
 			<Header
@@ -45,6 +49,7 @@ export default function ScheduleInterviewPage() {
 					isFinalDateSelection={isFinalDateSelection}
 					isProposingNewDate={isProposingNewDate}
 					setIsProposingNewDate={setIsProposingNewDate}
+					setSelectedTimeRanges={setSelectedTimeRanges}
 				/>
 				<div className="mt-4 text-end">
 					{isProposingNewDate ? (

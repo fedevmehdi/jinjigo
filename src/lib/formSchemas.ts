@@ -81,8 +81,8 @@ export const createInterviewSchema = z.object({
 			email: z.string().email(),
 		})
 	),
-	candidateEmailTemplate: z.string(),
-	interviewerEmailTemplate: z.string(),
+	candidateEmailTemplateId: z.string(),
+	interviewerEmailTemplateId: z.string(),
 	feedbackDeadline: z.coerce.number(),
 	escalationEmail: z.string().email().optional(),
 	escalationDeadline: z.coerce.number().optional(),
