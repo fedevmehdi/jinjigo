@@ -10,6 +10,7 @@ import { useEffect } from "react"
 import { loginUser, googleLogin } from "@/services/state/auth/authActions"
 import { AppDispatch, RootState } from "@/services/state/store"
 import LoginForm from "../components/loginForm"
+import { toast } from "sonner"
 
 export default function LoginPage() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -27,7 +28,9 @@ export default function LoginPage() {
 
 	function onSubmit(values: z.infer<typeof loginFormSchema>) {
 		try {
-			dispatch(loginUser(values))
+			dispatch(loginUser(values)).then(() => {
+				navigate("/")
+			})
 		} catch (err) {
 			console.error("Error:", err)
 		}
@@ -45,10 +48,11 @@ export default function LoginPage() {
 	useEffect(() => {
 		const token = searchParams.get("token")
 		if (token) {
+			localStorage.setItem("token", JSON.stringify(token))
 			dispatch(googleLogin(token))
 				.then(response => {
-					if (response.payload) {
-						localStorage.setItem("token", JSON.stringify(token))
+					if (response.meta.requestStatus === "rejected") {
+						toast.error("Failed to login. Please contact support")
 					}
 				})
 				.then(() => {

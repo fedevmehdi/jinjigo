@@ -2,13 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import getStartedSvg from "@/assets/images/many-people-collaborating.svg"
 import { signupFormSchema } from "@/lib/formSchemas"
 import Header from "../components/header"
 import Stepper from "@/components/ui/stepper"
-import GoogleAuthButton from "../components/google-auth-button"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/services/state/store"
 import { signupUser } from "@/services/state/auth/authActions"
@@ -49,57 +48,6 @@ function SignupFormSection({ setCurrentStep }: any) {
 				description="Enter your email and password to continue"
 			/>
 			<SignupForm form={form} onSubmit={onSubmit} loading={loading} />
-			<div className="flex items-center gap-2 my-8">
-				<hr className="w-full border-[1.4px]" />
-				<h6 className="uppercase text-sm text-accent-foreground">Or</h6>
-				<hr className="w-full border-[1.4px]" />
-			</div>
-			<div className="text-center">
-				<h5 className="text-sm text-accent-foreground mb-4">Signup with</h5>
-				<div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-14">
-					<GoogleAuthButton />
-					<Button
-						className="w-full cursor-pointer"
-						size="lg"
-						variant="secondary"
-					>
-						<div className="flex gap-2 items-center">
-							<svg height="26px" width="26px" viewBox="0 0 512 512">
-								<g id="_x37_8-microsoft">
-									<g>
-										<g>
-											<path
-												d="M270.912,241.049h223.691V31.708c0-8.26-6.68-14.958-14.914-14.958H270.912V241.049z      M270.912,241.049"
-												style={{ fill: "#5ACF5F" }}
-											/>
-											<path
-												d="M241.09,241.049V16.75H32.313c-8.236,0-14.916,6.698-14.916,14.958v209.341H241.09z      M241.09,241.049"
-												style={{ fill: "#F84437" }}
-											/>
-											<path
-												d="M241.09,270.953H17.397v209.343c0,8.251,6.68,14.954,14.916,14.954H241.09V270.953z      M241.09,270.953"
-												style={{ fill: "#2299F8" }}
-											/>
-											<path
-												d="M270.912,270.953V495.25h208.777c8.234,0,14.914-6.703,14.914-14.954V270.953H270.912z      M270.912,270.953"
-												style={{ fill: "#FFC107" }}
-											/>
-										</g>
-									</g>
-								</g>
-								<g id="Layer_1" />
-							</svg>
-							<h4 className="font-medium">Microsoft</h4>
-						</div>
-					</Button>
-				</div>
-				<h6 className="text-accent-foreground text-sm">
-					Already have an account?{" "}
-					<Link to="/login" className="inline font-medium hover:underline">
-						Login
-					</Link>
-				</h6>
-			</div>
 		</>
 	)
 }
