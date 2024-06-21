@@ -41,11 +41,14 @@ import { format } from "date-fns"
 import Loader from "@/components/modals/loader"
 import { createInterview } from "@/services/api"
 import { CreateInterview } from "@/lib/types"
+import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
 
 export default function CreateInterviewPage() {
 	const [interviewSchedulingMethod, setInterviewSchedulingMethod] =
 		useState<string>("flexible")
 	const [loading, setLoading] = useState(false)
+	const redirect = useNavigate()
 
 	const scheduleInterview = useForm<z.infer<typeof createInterviewSchema>>({
 		resolver: zodResolver(createInterviewSchema),
@@ -102,9 +105,16 @@ export default function CreateInterviewPage() {
 				interviewers: updatedInterviewers,
 			}
 			const response = await createInterview(updatedData)
+			if (response.status === 201) {
+				toast.success("Interview Successfully Created")
+				redirect("/interviews")
+			} else {
+				toast.error("Failed to Create Interview")
+			}
 			console.log(response)
 		} catch (error) {
 			console.error("Error fetching interviews", error)
+			toast.error("Error Fetching Interviews")
 		} finally {
 			setLoading(false)
 		}
