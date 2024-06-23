@@ -54,6 +54,13 @@ export const navItems: NavItem[] = [
 		role: "HR",
 	},
 	{
+		title: "Users",
+		href: "/users",
+		icon: "users",
+		label: "users",
+		role: "HR",
+	},
+	{
 		title: "Feedbacks",
 		href: "/feedback",
 		icon: "notebookPen",
@@ -102,4 +109,10 @@ export const frequency: string[] = [
 	"daily",
 	"2 days",
 	"3 days",
+]
+
+export const emailTemplateItems: string[] = [
+	"Feedback Notification",
+	"Scheduling Notification",
+	"Confirmation Notification",
 ]

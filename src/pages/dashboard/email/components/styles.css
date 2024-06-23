@@ -41,7 +41,7 @@
 }
 
 .dark .cdx-button:hover {
-	background-color: #2f2f2f;
+	background-color: #050404;
 }
 
 .dark .ce-popover,
@@ -53,4 +53,13 @@
 	background-color: #262626;
 	color: white;
 	border: none;
+}
+.editorjs-wrapper {
+	container-name: editorjsWrapper;
+	container-type: inline-size;
+}
+@container editorjsWrapper (min-width: 600px) {
+	.ce-toolbar__actions {
+		left: -75px !important;
+	}
 }

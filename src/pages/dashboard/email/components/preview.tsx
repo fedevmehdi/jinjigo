@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { memo, useEffect, useRef } from "react"
-import "./styles.css"
+// import "./styles.css"
 import EditorJS from "@editorjs/editorjs"
 import { EDITOR_JS_TOOLS } from "./tools"
 

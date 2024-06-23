@@ -30,7 +30,11 @@ const Editor = ({ data, setData, editorblock, ...props }) => {
 		}
 	}, [])
 
-	return <div className="ce-block__content" id={editorblock} />
+	return (
+		<div className="">
+			<div id={editorblock} />
+		</div>
+	)
 }
 
 export default memo(Editor)

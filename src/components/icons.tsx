@@ -7,6 +7,7 @@ import {
 	NotebookPen,
 	Presentation,
 	Inbox,
+	UsersRound,
 } from "lucide-react"
 
 export type Icon = LucideIcon
@@ -19,4 +20,5 @@ export const Icons = {
 	presentation: Presentation,
 	bookDashed: BookDashed,
 	inbox: Inbox,
+	users: UsersRound,
 }

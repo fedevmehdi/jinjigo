@@ -15,13 +15,11 @@ interface DashboardNavProps {
 export function DashboardNav({ items, setOpen, collapse }: DashboardNavProps) {
 	const user: User = useSelector((state: RootState) => state.auth.userInfo!)
 	let location = useLocation()
-
 	// Filter items based on user roles
 	const filteredItems = items.filter(item => {
-		if (item.role === "EVERYONE") return true
-		item.role === user.role
+		if (item.role === user.role || item.role === "EVERYONE") return true
 	})
-	console.log(user.role)
+
 	if (!items?.length) {
 		return null
 	}
