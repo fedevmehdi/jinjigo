@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Editor from "../components/editor"
 import { z } from "zod"
+import EmailTemplatePreviewModal from "@/components/modals/email-template-preview"
 
 const INITIAL_DATA = {
 	time: new Date().getTime(),
@@ -33,9 +34,7 @@ const INITIAL_DATA = {
 
 export default function EmailTemplatePage() {
 	const [data, setData] = useState(INITIAL_DATA)
-	const [openPreview, setOpenPreview] = useState(false)
 
-	console.log(data)
 	const navigate = useNavigate()
 
 	const form = useForm<z.infer<typeof createEmailTemplateSchema>>({
@@ -97,9 +96,14 @@ export default function EmailTemplatePage() {
 						</form>
 					</Form>
 					<div className="text-end mt-4 space-x-2">
-						<Button variant="outline" onClick={() => setOpenPreview(true)}>
-							Preview
-						</Button>
+						<EmailTemplatePreviewModal>
+							<Editor
+								data={data}
+								setData={setData}
+								editorblock="editorjs-preview"
+								readOnly={true}
+							/>
+						</EmailTemplatePreviewModal>
 						<Button>Save</Button>
 					</div>
 				</div>
