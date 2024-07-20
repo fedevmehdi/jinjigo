@@ -1,11 +1,7 @@
-import { User } from "@/lib/types"
-import { RootState } from "@/services/state/store"
-import { useSelector } from "react-redux"
-import { Navigate, Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 
 const PrivateRoute = () => {
-	const user: User = useSelector((state: RootState) => state.auth.userInfo!)
-	return user ? <Outlet /> : <Navigate to={"/login"} replace />
+	return <Outlet />
 }
 
 export default PrivateRoute
