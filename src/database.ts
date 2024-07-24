@@ -112,7 +112,9 @@ export const frequency: string[] = [
 ]
 
 export const emailTemplateItems: string[] = [
-	"Feedback Notification",
-	"Scheduling Notification",
-	"Confirmation Notification",
+	"Feedback",
+	"Scheduling",
+	"Confirmation",
+	"Rescheduling",
+	"Escalation",
 ]

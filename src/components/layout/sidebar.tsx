@@ -26,14 +26,13 @@ export default function Sidebar() {
 			transition={{ type: "tween" }}
 		>
 			<motion.div
-				className="flex w-60 h-60 justify-center items-center"
+				className="flex justify-center items-center"
 				initial={{
-					opacity: 0,
 					position: "absolute",
-					right: "-120px",
-					top: "-2%",
+					right: "-30px",
+					top: "12%",
 				}}
-				whileHover={{ opacity: 1, right: "-150px" }}
+				whileHover={{ right: "-35px" }}
 				transition={{ type: "spring" }}
 			>
 				<MotionButton

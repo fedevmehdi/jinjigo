@@ -117,4 +117,7 @@
 	.h-cscreen {
 		@apply h-[calc(100vh-8px)];
 	}
+	.font-poppins {
+		font-family: "Poppins", sans-serif;
+	}
 }
