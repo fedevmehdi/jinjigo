@@ -21,8 +21,15 @@ import { handleImageDrop, handleImagePaste } from "novel/plugins"
 import { uploadFn } from "./image-upload"
 import { Separator } from "@/components/ui/seperator"
 import { cn } from "@/lib/utils"
+import TextDirection from "tiptap-text-direction"
 
-const extensions = [...defaultExtensions, slashCommand]
+const extensions = [
+	...defaultExtensions,
+	slashCommand,
+	TextDirection.configure({
+		types: ["heading", "paragraph"],
+	}),
+]
 
 interface EditorProp {
 	initialValue?: JSONContent
