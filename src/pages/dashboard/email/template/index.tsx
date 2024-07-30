@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { emailTemplateItems } from "@/database"
-import { useNavigate } from "react-router-dom"
-import { ChangeEvent, useState } from "react"
-import { Label } from "@/components/ui/label"
+import { useState } from "react"
 import { JSONContent } from "novel"
 import TailwindEditor from "../components/novel/advance-editor"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -14,7 +12,7 @@ interface TemplateType {
 }
 
 export default function EmailTemplatePage() {
-	const [activeTab, setActiveTab] = useState<number>(0)
+	// const [activeTab, setActiveTab] = useState<number>(0)
 
 	const [values, setValues] = useState<TemplateType[]>(
 		emailTemplateItems.map(item => ({
@@ -24,16 +22,14 @@ export default function EmailTemplatePage() {
 		}))
 	)
 
-	const navigate = useNavigate()
-
-	const handleSubjectChange = (
-		e: ChangeEvent<HTMLInputElement>,
-		index: number
-	): void => {
-		const newValues = [...values]
-		newValues[index].subject = e.target.value
-		setValues(newValues)
-	}
+	// const handleSubjectChange = (
+	// 	e: ChangeEvent<HTMLInputElement>,
+	// 	index: number
+	// ): void => {
+	// 	const newValues = [...values]
+	// 	newValues[index].subject = e.target.value
+	// 	setValues(newValues)
+	// }
 
 	const handleEditorChange = (newValue: JSONContent, index: number): void => {
 		const newValues = [...values]
@@ -61,7 +57,7 @@ export default function EmailTemplatePage() {
 							<TabsTrigger
 								key={index}
 								value={item}
-								onClick={() => setActiveTab(index)}
+								// onClick={() => setActiveTab(index)}
 							>
 								{item}
 							</TabsTrigger>
